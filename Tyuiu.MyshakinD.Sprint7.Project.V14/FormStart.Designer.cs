@@ -41,6 +41,7 @@
             axWindowsMediaPlayerStartAnimation.Size = new Size(540, 500);
             axWindowsMediaPlayerStartAnimation.TabIndex = 0;
             axWindowsMediaPlayerStartAnimation.PlayStateChange += axWindowsMediaPlayerStartAnimation_PlayStateChange;
+            axWindowsMediaPlayerStartAnimation.MouseDownEvent += axWindowsMediaPlayerStartAnimation_MouseDownEvent;
             axWindowsMediaPlayerStartAnimation.Enter += axWindowsMediaPlayerStartAnimation_Enter;
             // 
             // FormStart
@@ -53,6 +54,7 @@
             Name = "FormStart";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            Click += FormStart_Click;
             ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayerStartAnimation).EndInit();
             ResumeLayout(false);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tyuiu.MyshakinD.Sprint7.Project.V14.Lib;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -17,7 +18,12 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-
+            if (!DataService.ConnectionAvailable())
+            {
+                FormNoInternetConnection form = new FormNoInternetConnection();
+                this.Hide();
+                form.ShowDialog();
+            }
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)

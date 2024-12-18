@@ -19,8 +19,22 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             {
                 FormMain form = new FormMain();
                 this.Hide();
+                axWindowsMediaPlayerStartAnimation.close();
                 form.Show();
             }
+        }
+
+        private void FormStart_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void axWindowsMediaPlayerStartAnimation_MouseDownEvent(object sender, AxWMPLib._WMPOCXEvents_MouseDownEvent e)
+        {
+            FormMain form = new FormMain();
+            this.Hide();
+            axWindowsMediaPlayerStartAnimation.close();
+            form.Show();
         }
     }
 }
