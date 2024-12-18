@@ -26,15 +26,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             SuspendLayout();
             // 
             // FormMain
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(7F, 14F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 420);
+            Font = new Font("Consolas", 9F);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormMain";
-            Text = "FormMain";
+            Text = "Bus_Is_Gone";
             FormClosed += FormMain_FormClosed;
             Load += FormMain_Load;
             ResumeLayout(false);
