@@ -29,6 +29,8 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panelAbout = new Panel();
             buttonHelp = new Button();
             panelTop = new Panel();
@@ -40,11 +42,16 @@
             textBoxCityName = new TextBox();
             pictureBoxCity = new PictureBox();
             panelBuses = new Panel();
+            pictureBoxButtonSearch = new PictureBox();
+            pictureBoxButtonUpdate = new PictureBox();
             pictureBoxBusesWindowDown = new PictureBox();
             pictureBoxBusesWindowRight = new PictureBox();
             pictureBoxBusesWindowLeft = new PictureBox();
             pictureBoxBusesWindowUp = new PictureBox();
             dataGridViewBusesList = new DataGridView();
+            BusNumber = new DataGridViewTextBoxColumn();
+            BusStartStop = new DataGridViewTextBoxColumn();
+            BusEndStop = new DataGridViewTextBoxColumn();
             splitterBusesAndBusStops = new Splitter();
             panelBusStops = new Panel();
             pictureBoxStopsWindowDown = new PictureBox();
@@ -53,9 +60,6 @@
             pictureBoxStopsWindowUp = new PictureBox();
             dataGridViewStopsList = new DataGridView();
             timerCurrentTime = new System.Windows.Forms.Timer(components);
-            BusNumber = new DataGridViewTextBoxColumn();
-            BusStartStop = new DataGridViewTextBoxColumn();
-            BusEndStop = new DataGridViewTextBoxColumn();
             panelAbout.SuspendLayout();
             panelTop.SuspendLayout();
             panelHello.SuspendLayout();
@@ -63,6 +67,8 @@
             panelChangeCity.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCity).BeginInit();
             panelBuses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxButtonSearch).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxButtonUpdate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowRight).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowLeft).BeginInit();
@@ -220,6 +226,8 @@
             // 
             panelBuses.BackColor = Color.FromArgb(15, 90, 48);
             panelBuses.BorderStyle = BorderStyle.FixedSingle;
+            panelBuses.Controls.Add(pictureBoxButtonSearch);
+            panelBuses.Controls.Add(pictureBoxButtonUpdate);
             panelBuses.Controls.Add(pictureBoxBusesWindowDown);
             panelBuses.Controls.Add(pictureBoxBusesWindowRight);
             panelBuses.Controls.Add(pictureBoxBusesWindowLeft);
@@ -232,6 +240,34 @@
             panelBuses.TabIndex = 6;
             panelBuses.SizeChanged += panelBuses_SizeChanged;
             panelBuses.MouseMove += panelBuses_MouseMove;
+            // 
+            // pictureBoxButtonSearch
+            // 
+            pictureBoxButtonSearch.Image = (Image)resources.GetObject("pictureBoxButtonSearch.Image");
+            pictureBoxButtonSearch.Location = new Point(11, 58);
+            pictureBoxButtonSearch.Name = "pictureBoxButtonSearch";
+            pictureBoxButtonSearch.Size = new Size(113, 26);
+            pictureBoxButtonSearch.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxButtonSearch.TabIndex = 8;
+            pictureBoxButtonSearch.TabStop = false;
+            pictureBoxButtonSearch.MouseDown += pictureBoxButtonSearch_MouseDown;
+            pictureBoxButtonSearch.MouseEnter += pictureBox1_MouseEnter;
+            pictureBoxButtonSearch.MouseLeave += pictureBoxButtonSearch_MouseLeave;
+            pictureBoxButtonSearch.MouseUp += pictureBoxButtonSearch_MouseUp;
+            // 
+            // pictureBoxButtonUpdate
+            // 
+            pictureBoxButtonUpdate.Image = (Image)resources.GetObject("pictureBoxButtonUpdate.Image");
+            pictureBoxButtonUpdate.Location = new Point(613, 58);
+            pictureBoxButtonUpdate.Name = "pictureBoxButtonUpdate";
+            pictureBoxButtonUpdate.Size = new Size(113, 26);
+            pictureBoxButtonUpdate.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxButtonUpdate.TabIndex = 7;
+            pictureBoxButtonUpdate.TabStop = false;
+            pictureBoxButtonUpdate.MouseDown += pictureBoxButtonUpdate_MouseDown;
+            pictureBoxButtonUpdate.MouseEnter += pictureBoxButtonUpdate_MouseEnter;
+            pictureBoxButtonUpdate.MouseLeave += pictureBoxButtonUpdate_MouseLeave;
+            pictureBoxButtonUpdate.MouseUp += pictureBoxButtonUpdate_MouseUp;
             // 
             // pictureBoxBusesWindowDown
             // 
@@ -277,14 +313,60 @@
             // 
             // dataGridViewBusesList
             // 
+            dataGridViewBusesList.AllowUserToAddRows = false;
+            dataGridViewBusesList.AllowUserToDeleteRows = false;
+            dataGridViewBusesList.AllowUserToResizeColumns = false;
+            dataGridViewBusesList.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewBusesList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewBusesList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewBusesList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewBusesList.BackgroundColor = Color.DarkSeaGreen;
+            dataGridViewBusesList.ColumnHeadersHeight = 30;
+            dataGridViewBusesList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewBusesList.Columns.AddRange(new DataGridViewColumn[] { BusNumber, BusStartStop, BusEndStop });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Consolas", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridViewBusesList.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewBusesList.Location = new Point(31, 141);
             dataGridViewBusesList.Name = "dataGridViewBusesList";
+            dataGridViewBusesList.ReadOnly = true;
             dataGridViewBusesList.RowHeadersVisible = false;
             dataGridViewBusesList.Size = new Size(672, 457);
             dataGridViewBusesList.TabIndex = 0;
+            dataGridViewBusesList.TabStop = false;
+            dataGridViewBusesList.ColumnHeaderMouseClick += dataGridViewBusesList_ColumnHeaderMouseClick;
+            // 
+            // BusNumber
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            BusNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            BusNumber.Frozen = true;
+            BusNumber.HeaderText = "№";
+            BusNumber.Name = "BusNumber";
+            BusNumber.ReadOnly = true;
+            BusNumber.Width = 39;
+            // 
+            // BusStartStop
+            // 
+            BusStartStop.Frozen = true;
+            BusStartStop.HeaderText = "Начальная остановка";
+            BusStartStop.Name = "BusStartStop";
+            BusStartStop.ReadOnly = true;
+            BusStartStop.Width = 165;
+            // 
+            // BusEndStop
+            // 
+            BusEndStop.Frozen = true;
+            BusEndStop.HeaderText = "Конечная остановка";
+            BusEndStop.Name = "BusEndStop";
+            BusEndStop.ReadOnly = true;
+            BusEndStop.Width = 158;
             // 
             // splitterBusesAndBusStops
             // 
@@ -370,29 +452,6 @@
             timerCurrentTime.Enabled = true;
             timerCurrentTime.Tick += timerCurrentTime_Tick;
             // 
-            // BusNumber
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            BusNumber.DefaultCellStyle = dataGridViewCellStyle1;
-            BusNumber.HeaderText = "№";
-            BusNumber.Name = "BusNumber";
-            BusNumber.ReadOnly = true;
-            BusNumber.Width = 39;
-            // 
-            // BusStartStop
-            // 
-            BusStartStop.HeaderText = "Начальная остановка";
-            BusStartStop.Name = "BusStartStop";
-            BusStartStop.ReadOnly = true;
-            BusStartStop.Width = 151;
-            // 
-            // BusEndStop
-            // 
-            BusEndStop.HeaderText = "Конечная остановка";
-            BusEndStop.Name = "BusEndStop";
-            BusEndStop.ReadOnly = true;
-            BusEndStop.Width = 144;
-            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 14F);
@@ -423,6 +482,9 @@
             panelChangeCity.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCity).EndInit();
             panelBuses.ResumeLayout(false);
+            panelBuses.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxButtonSearch).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxButtonUpdate).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowDown).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowRight).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowLeft).EndInit();
@@ -466,5 +528,7 @@
         private DataGridViewTextBoxColumn BusNumber;
         private DataGridViewTextBoxColumn BusStartStop;
         private DataGridViewTextBoxColumn BusEndStop;
+        private PictureBox pictureBoxButtonUpdate;
+        private PictureBox pictureBoxButtonSearch;
     }
 }

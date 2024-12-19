@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
+using System.IO;
 
 namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
     public partial class FormMain : Form {
@@ -35,7 +36,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
                 string path = DataService.LoadBuses();
 
                 int linesCount = 0;
-                
+
                 using (StreamReader streamreader = new StreamReader(path))
                 {
                     while (!streamreader.EndOfStream)
@@ -66,7 +67,9 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             }
             catch
             {
-                MessageBox.Show("Что-то пошло не так");
+                FormNoInternetConnection form = new FormNoInternetConnection();
+                this.Hide();
+                form.ShowDialog();
             }
         }
 
@@ -200,6 +203,92 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             pictureBoxStopsWindowDown.Width = dataGridViewStopsList.Width + 43;
             pictureBoxStopsWindowLeft.Height = dataGridViewStopsList.Height;
             pictureBoxStopsWindowRight.Height = dataGridViewStopsList.Height;
+        }
+
+        private void dataGridViewBusesList_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBoxButtonUpdate_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_enter.png");
+        }
+
+        private void pictureBoxButtonUpdate_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_sleep.png");
+        }
+
+        private void pictureBoxButtonUpdate_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_click.png");
+
+            try
+            {
+                string path = DataService.LoadBuses();
+
+                int linesCount = 0;
+
+                using (StreamReader streamreader = new StreamReader(path))
+                {
+                    while (!streamreader.EndOfStream)
+                    {
+                        var line = streamreader.ReadLine();
+                        linesCount++;
+                    }
+                }
+
+                dataGridViewBusesList.Rows.Clear();
+                dataGridViewBusesList.RowCount = linesCount;
+
+                using (StreamReader streamreader = new StreamReader(path))
+                {
+                    while (!streamreader.EndOfStream)
+                    {
+                        for (int row = 0; row <= dataGridViewBusesList.RowCount - 1; row++)
+                        {
+                            string[] currentData = streamreader.ReadLine().Split(";");
+
+                            for (int column = 0; column <= dataGridViewBusesList.ColumnCount - 1; column++)
+                            {
+                                dataGridViewBusesList[column, row].Value = currentData[column];
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                FormNoInternetConnection form = new FormNoInternetConnection();
+                this.Hide();
+                form.ShowDialog();
+            }
+        }
+
+        private void pictureBoxButtonUpdate_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_enter.png");
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxButtonSearch.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_enter.png");
+        }
+
+        private void pictureBoxButtonSearch_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxButtonSearch.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_sleep.png");
+        }
+
+        private void pictureBoxButtonSearch_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonSearch.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
+        }
+
+        private void pictureBoxButtonSearch_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonSearch.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_enter.png");
         }
     }
 }
