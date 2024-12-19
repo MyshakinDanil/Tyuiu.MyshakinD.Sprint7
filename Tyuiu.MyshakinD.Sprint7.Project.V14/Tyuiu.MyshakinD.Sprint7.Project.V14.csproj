@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.71" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tyuiu.MyshakinD.Sprint7.Project.V14.Lib\Tyuiu.MyshakinD.Sprint7.Project.V14.Lib.csproj" />
   </ItemGroup>
 

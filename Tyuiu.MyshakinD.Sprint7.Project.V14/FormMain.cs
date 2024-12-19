@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using Tyuiu.MyshakinD.Sprint7.Project.V14.Lib;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
     public partial class FormMain : Form {
@@ -27,6 +29,45 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
             textBoxHello.Width = panelHello.Width - 50;
             textBoxHello.Height = panelHello.Height - 20;
+
+            try
+            {
+                string path = DataService.LoadBuses();
+
+                int linesCount = 0;
+                
+                using (StreamReader streamreader = new StreamReader(path))
+                {
+                    while (!streamreader.EndOfStream)
+                    {
+                        var line = streamreader.ReadLine();
+                        linesCount++;
+                    }
+                }
+
+                dataGridViewBusesList.Rows.Clear();
+                dataGridViewBusesList.RowCount = linesCount;
+
+                using (StreamReader streamreader = new StreamReader(path))
+                {
+                    while (!streamreader.EndOfStream)
+                    {
+                        for (int row = 0; row <= dataGridViewBusesList.RowCount - 1; row++)
+                        {
+                            string[] currentData = streamreader.ReadLine().Split(";");
+
+                            for (int column = 0; column <= dataGridViewBusesList.ColumnCount - 1; column++)
+                            {
+                                dataGridViewBusesList[column, row].Value = currentData[column];
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так");
+            }
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
