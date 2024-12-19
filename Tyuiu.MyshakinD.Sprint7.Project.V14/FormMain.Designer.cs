@@ -36,25 +36,48 @@
             panelChangeCity = new Panel();
             textBoxCurrentTime = new TextBox();
             textBoxCityName = new TextBox();
-            pictureBox1 = new PictureBox();
+            pictureBoxCity = new PictureBox();
             panelBuses = new Panel();
+            pictureBoxBusesWindowDown = new PictureBox();
+            pictureBoxBusesWindowRight = new PictureBox();
+            pictureBoxBusesWindowLeft = new PictureBox();
+            pictureBoxBusesWindowUp = new PictureBox();
+            dataGridViewBusesList = new DataGridView();
             splitterBusesAndBusStops = new Splitter();
             panelBusStops = new Panel();
+            pictureBoxStopsWindowDown = new PictureBox();
+            pictureBoxStopsWindowRight = new PictureBox();
+            pictureBoxStopsWindowLeft = new PictureBox();
+            pictureBoxStopsWindowUp = new PictureBox();
+            dataGridViewStopsList = new DataGridView();
             timerCurrentTime = new System.Windows.Forms.Timer(components);
             panelTop.SuspendLayout();
             panelHello.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBackgroundHello).BeginInit();
             panelChangeCity.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCity).BeginInit();
+            panelBuses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowRight).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowLeft).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowUp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewBusesList).BeginInit();
+            panelBusStops.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowRight).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowLeft).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowUp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewStopsList).BeginInit();
             SuspendLayout();
             // 
             // panelAbout
             // 
-            panelAbout.BackColor = Color.LightSteelBlue;
+            panelAbout.BackColor = Color.SeaGreen;
+            panelAbout.BorderStyle = BorderStyle.FixedSingle;
             panelAbout.Dock = DockStyle.Bottom;
-            panelAbout.Location = new Point(0, 611);
+            panelAbout.Location = new Point(0, 729);
             panelAbout.Name = "panelAbout";
-            panelAbout.Size = new Size(1317, 29);
+            panelAbout.Size = new Size(1468, 29);
             panelAbout.TabIndex = 4;
             panelAbout.MouseMove += panelAbout_MouseMove;
             // 
@@ -65,7 +88,7 @@
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
-            panelTop.Size = new Size(1317, 100);
+            panelTop.Size = new Size(1468, 100);
             panelTop.TabIndex = 5;
             // 
             // panelHello
@@ -77,7 +100,7 @@
             panelHello.Dock = DockStyle.Fill;
             panelHello.Location = new Point(200, 0);
             panelHello.Name = "panelHello";
-            panelHello.Size = new Size(1117, 100);
+            panelHello.Size = new Size(1268, 100);
             panelHello.TabIndex = 1;
             panelHello.MouseMove += panelHello_MouseMove;
             // 
@@ -90,32 +113,35 @@
             textBoxHello.Multiline = true;
             textBoxHello.Name = "textBoxHello";
             textBoxHello.ReadOnly = true;
-            textBoxHello.Size = new Size(1055, 99);
+            textBoxHello.ShortcutsEnabled = false;
+            textBoxHello.Size = new Size(1161, 99);
             textBoxHello.TabIndex = 1;
             textBoxHello.TabStop = false;
             textBoxHello.Text = "Добро пожаловать в Bus_Is_Gone!\r\nБлагодаря данной программе вы можете узнать информацию об автобусах и их остановках, а также ближайшее время прибытия.";
             textBoxHello.TextAlign = HorizontalAlignment.Center;
+            textBoxHello.MouseDown += textBoxHello_MouseDown;
             textBoxHello.MouseMove += textBoxHello_MouseMove;
             // 
             // pictureBoxBackgroundHello
             // 
+            pictureBoxBackgroundHello.BackColor = Color.SeaGreen;
             pictureBoxBackgroundHello.Dock = DockStyle.Fill;
             pictureBoxBackgroundHello.Image = (Image)resources.GetObject("pictureBoxBackgroundHello.Image");
             pictureBoxBackgroundHello.Location = new Point(0, 0);
             pictureBoxBackgroundHello.Name = "pictureBoxBackgroundHello";
-            pictureBoxBackgroundHello.Size = new Size(1115, 98);
+            pictureBoxBackgroundHello.Size = new Size(1266, 98);
             pictureBoxBackgroundHello.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxBackgroundHello.TabIndex = 0;
             pictureBoxBackgroundHello.TabStop = false;
             // 
             // panelChangeCity
             // 
-            panelChangeCity.BackColor = Color.LightSteelBlue;
+            panelChangeCity.BackColor = Color.SeaGreen;
             panelChangeCity.BackgroundImage = (Image)resources.GetObject("panelChangeCity.BackgroundImage");
             panelChangeCity.BorderStyle = BorderStyle.FixedSingle;
             panelChangeCity.Controls.Add(textBoxCurrentTime);
             panelChangeCity.Controls.Add(textBoxCityName);
-            panelChangeCity.Controls.Add(pictureBox1);
+            panelChangeCity.Controls.Add(pictureBoxCity);
             panelChangeCity.Dock = DockStyle.Left;
             panelChangeCity.Location = new Point(0, 0);
             panelChangeCity.Name = "panelChangeCity";
@@ -132,10 +158,12 @@
             textBoxCurrentTime.Location = new Point(93, 53);
             textBoxCurrentTime.Name = "textBoxCurrentTime";
             textBoxCurrentTime.ReadOnly = true;
+            textBoxCurrentTime.ShortcutsEnabled = false;
             textBoxCurrentTime.Size = new Size(100, 21);
             textBoxCurrentTime.TabIndex = 2;
             textBoxCurrentTime.TabStop = false;
             textBoxCurrentTime.TextAlign = HorizontalAlignment.Center;
+            textBoxCurrentTime.MouseDown += textBoxCurrentTime_MouseDown;
             textBoxCurrentTime.MouseMove += textBoxCurrentTime_MouseMove_1;
             // 
             // textBoxCityName
@@ -153,45 +181,166 @@
             textBoxCityName.Text = "Тюмень";
             textBoxCityName.TextAlign = HorizontalAlignment.Center;
             textBoxCityName.TextChanged += textBoxCityName_TextChanged;
+            textBoxCityName.MouseDown += textBoxCityName_MouseDown;
             textBoxCityName.MouseEnter += textBoxCityName_MouseEnter;
             textBoxCityName.MouseMove += textBoxCityName_MouseMove;
             // 
-            // pictureBox1
+            // pictureBoxCity
             // 
-            pictureBox1.BackColor = Color.FromArgb(255, 233, 197);
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 20);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(85, 55);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            pictureBoxCity.BackColor = Color.FromArgb(255, 233, 197);
+            pictureBoxCity.Image = (Image)resources.GetObject("pictureBoxCity.Image");
+            pictureBoxCity.Location = new Point(3, 20);
+            pictureBoxCity.Name = "pictureBoxCity";
+            pictureBoxCity.Size = new Size(85, 55);
+            pictureBoxCity.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxCity.TabIndex = 0;
+            pictureBoxCity.TabStop = false;
             // 
             // panelBuses
             // 
+            panelBuses.BackColor = Color.FromArgb(15, 90, 48);
+            panelBuses.BorderStyle = BorderStyle.FixedSingle;
+            panelBuses.Controls.Add(pictureBoxBusesWindowDown);
+            panelBuses.Controls.Add(pictureBoxBusesWindowRight);
+            panelBuses.Controls.Add(pictureBoxBusesWindowLeft);
+            panelBuses.Controls.Add(pictureBoxBusesWindowUp);
+            panelBuses.Controls.Add(dataGridViewBusesList);
             panelBuses.Dock = DockStyle.Left;
             panelBuses.Location = new Point(0, 100);
             panelBuses.Name = "panelBuses";
-            panelBuses.Size = new Size(620, 511);
+            panelBuses.Size = new Size(733, 629);
             panelBuses.TabIndex = 6;
+            panelBuses.SizeChanged += panelBuses_SizeChanged;
             panelBuses.MouseMove += panelBuses_MouseMove;
+            // 
+            // pictureBoxBusesWindowDown
+            // 
+            pictureBoxBusesWindowDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            pictureBoxBusesWindowDown.Image = (Image)resources.GetObject("pictureBoxBusesWindowDown.Image");
+            pictureBoxBusesWindowDown.Location = new Point(11, 595);
+            pictureBoxBusesWindowDown.Name = "pictureBoxBusesWindowDown";
+            pictureBoxBusesWindowDown.Size = new Size(715, 27);
+            pictureBoxBusesWindowDown.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxBusesWindowDown.TabIndex = 4;
+            pictureBoxBusesWindowDown.TabStop = false;
+            // 
+            // pictureBoxBusesWindowRight
+            // 
+            pictureBoxBusesWindowRight.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBoxBusesWindowRight.Image = (Image)resources.GetObject("pictureBoxBusesWindowRight.Image");
+            pictureBoxBusesWindowRight.Location = new Point(700, 141);
+            pictureBoxBusesWindowRight.Name = "pictureBoxBusesWindowRight";
+            pictureBoxBusesWindowRight.Size = new Size(26, 457);
+            pictureBoxBusesWindowRight.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxBusesWindowRight.TabIndex = 3;
+            pictureBoxBusesWindowRight.TabStop = false;
+            // 
+            // pictureBoxBusesWindowLeft
+            // 
+            pictureBoxBusesWindowLeft.Image = (Image)resources.GetObject("pictureBoxBusesWindowLeft.Image");
+            pictureBoxBusesWindowLeft.Location = new Point(11, 141);
+            pictureBoxBusesWindowLeft.Name = "pictureBoxBusesWindowLeft";
+            pictureBoxBusesWindowLeft.Size = new Size(24, 457);
+            pictureBoxBusesWindowLeft.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxBusesWindowLeft.TabIndex = 2;
+            pictureBoxBusesWindowLeft.TabStop = false;
+            // 
+            // pictureBoxBusesWindowUp
+            // 
+            pictureBoxBusesWindowUp.Image = (Image)resources.GetObject("pictureBoxBusesWindowUp.Image");
+            pictureBoxBusesWindowUp.Location = new Point(11, 90);
+            pictureBoxBusesWindowUp.Name = "pictureBoxBusesWindowUp";
+            pictureBoxBusesWindowUp.Size = new Size(715, 55);
+            pictureBoxBusesWindowUp.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxBusesWindowUp.TabIndex = 1;
+            pictureBoxBusesWindowUp.TabStop = false;
+            // 
+            // dataGridViewBusesList
+            // 
+            dataGridViewBusesList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewBusesList.Location = new Point(31, 132);
+            dataGridViewBusesList.Name = "dataGridViewBusesList";
+            dataGridViewBusesList.Size = new Size(672, 466);
+            dataGridViewBusesList.TabIndex = 0;
             // 
             // splitterBusesAndBusStops
             // 
-            splitterBusesAndBusStops.Location = new Point(620, 100);
+            splitterBusesAndBusStops.BackColor = Color.SeaGreen;
+            splitterBusesAndBusStops.Location = new Point(733, 100);
+            splitterBusesAndBusStops.MinExtra = 200;
+            splitterBusesAndBusStops.MinSize = 200;
             splitterBusesAndBusStops.Name = "splitterBusesAndBusStops";
-            splitterBusesAndBusStops.Size = new Size(3, 511);
+            splitterBusesAndBusStops.Size = new Size(10, 629);
             splitterBusesAndBusStops.TabIndex = 7;
             splitterBusesAndBusStops.TabStop = false;
             // 
             // panelBusStops
             // 
+            panelBusStops.BackColor = Color.FromArgb(15, 90, 48);
+            panelBusStops.BorderStyle = BorderStyle.FixedSingle;
+            panelBusStops.Controls.Add(pictureBoxStopsWindowDown);
+            panelBusStops.Controls.Add(pictureBoxStopsWindowRight);
+            panelBusStops.Controls.Add(pictureBoxStopsWindowLeft);
+            panelBusStops.Controls.Add(pictureBoxStopsWindowUp);
+            panelBusStops.Controls.Add(dataGridViewStopsList);
             panelBusStops.Dock = DockStyle.Fill;
-            panelBusStops.Location = new Point(623, 100);
+            panelBusStops.Location = new Point(743, 100);
             panelBusStops.Name = "panelBusStops";
-            panelBusStops.Size = new Size(694, 511);
+            panelBusStops.Size = new Size(725, 629);
             panelBusStops.TabIndex = 8;
+            panelBusStops.SizeChanged += panelBusStops_SizeChanged;
+            panelBusStops.Paint += panelBusStops_Paint;
             panelBusStops.MouseMove += panelBusStops_MouseMove;
+            // 
+            // pictureBoxStopsWindowDown
+            // 
+            pictureBoxStopsWindowDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            pictureBoxStopsWindowDown.Image = (Image)resources.GetObject("pictureBoxStopsWindowDown.Image");
+            pictureBoxStopsWindowDown.Location = new Point(5, 597);
+            pictureBoxStopsWindowDown.Name = "pictureBoxStopsWindowDown";
+            pictureBoxStopsWindowDown.Size = new Size(715, 27);
+            pictureBoxStopsWindowDown.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxStopsWindowDown.TabIndex = 4;
+            pictureBoxStopsWindowDown.TabStop = false;
+            // 
+            // pictureBoxStopsWindowRight
+            // 
+            pictureBoxStopsWindowRight.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBoxStopsWindowRight.Image = (Image)resources.GetObject("pictureBoxStopsWindowRight.Image");
+            pictureBoxStopsWindowRight.Location = new Point(694, 141);
+            pictureBoxStopsWindowRight.Name = "pictureBoxStopsWindowRight";
+            pictureBoxStopsWindowRight.Size = new Size(26, 457);
+            pictureBoxStopsWindowRight.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxStopsWindowRight.TabIndex = 3;
+            pictureBoxStopsWindowRight.TabStop = false;
+            // 
+            // pictureBoxStopsWindowLeft
+            // 
+            pictureBoxStopsWindowLeft.Image = (Image)resources.GetObject("pictureBoxStopsWindowLeft.Image");
+            pictureBoxStopsWindowLeft.Location = new Point(5, 141);
+            pictureBoxStopsWindowLeft.Name = "pictureBoxStopsWindowLeft";
+            pictureBoxStopsWindowLeft.Size = new Size(24, 457);
+            pictureBoxStopsWindowLeft.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxStopsWindowLeft.TabIndex = 2;
+            pictureBoxStopsWindowLeft.TabStop = false;
+            // 
+            // pictureBoxStopsWindowUp
+            // 
+            pictureBoxStopsWindowUp.Image = (Image)resources.GetObject("pictureBoxStopsWindowUp.Image");
+            pictureBoxStopsWindowUp.Location = new Point(5, 90);
+            pictureBoxStopsWindowUp.Name = "pictureBoxStopsWindowUp";
+            pictureBoxStopsWindowUp.Size = new Size(715, 55);
+            pictureBoxStopsWindowUp.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxStopsWindowUp.TabIndex = 1;
+            pictureBoxStopsWindowUp.TabStop = false;
+            // 
+            // dataGridViewStopsList
+            // 
+            dataGridViewStopsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewStopsList.Location = new Point(27, 141);
+            dataGridViewStopsList.Name = "dataGridViewStopsList";
+            dataGridViewStopsList.Size = new Size(672, 457);
+            dataGridViewStopsList.TabIndex = 0;
             // 
             // timerCurrentTime
             // 
@@ -202,7 +351,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 14F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1317, 640);
+            ClientSize = new Size(1468, 758);
             Controls.Add(panelBusStops);
             Controls.Add(splitterBusesAndBusStops);
             Controls.Add(panelBuses);
@@ -210,7 +359,7 @@
             Controls.Add(panelAbout);
             Font = new Font("Consolas", 9F);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(1333, 679);
+            MinimumSize = new Size(1432, 751);
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bus_Is_Gone";
@@ -225,7 +374,19 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxBackgroundHello).EndInit();
             panelChangeCity.ResumeLayout(false);
             panelChangeCity.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCity).EndInit();
+            panelBuses.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowRight).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowLeft).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowUp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewBusesList).EndInit();
+            panelBusStops.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowRight).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowLeft).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowUp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewStopsList).EndInit();
             ResumeLayout(false);
         }
 
@@ -239,10 +400,20 @@
         private Panel panelBusStops;
         private Panel panelChangeCity;
         private TextBox textBoxCityName;
-        private PictureBox pictureBox1;
+        private PictureBox pictureBoxCity;
         private TextBox textBoxCurrentTime;
         private System.Windows.Forms.Timer timerCurrentTime;
         private PictureBox pictureBoxBackgroundHello;
         private TextBox textBoxHello;
+        private DataGridView dataGridViewBusesList;
+        private PictureBox pictureBoxBusesWindowUp;
+        private PictureBox pictureBoxBusesWindowDown;
+        private PictureBox pictureBoxBusesWindowRight;
+        private PictureBox pictureBoxBusesWindowLeft;
+        private PictureBox pictureBoxStopsWindowUp;
+        private DataGridView dataGridViewStopsList;
+        private PictureBox pictureBoxStopsWindowDown;
+        private PictureBox pictureBoxStopsWindowRight;
+        private PictureBox pictureBoxStopsWindowLeft;
     }
 }

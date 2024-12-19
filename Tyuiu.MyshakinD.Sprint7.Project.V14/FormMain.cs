@@ -42,6 +42,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void textBoxCityName_MouseMove(object sender, MouseEventArgs e)
         {
             panelChangeCity.Focus();
+            Cursor = Cursors.Arrow;
         }
 
         private void textBoxCityName_MouseEnter(object sender, EventArgs e)
@@ -93,6 +94,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void textBoxCurrentTime_MouseMove_1(object sender, MouseEventArgs e)
         {
             panelChangeCity.Focus();
+            Cursor = Cursors.Arrow;
         }
 
         private void timerCurrentTime_Tick(object sender, EventArgs e)
@@ -108,6 +110,55 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void textBoxHello_MouseMove(object sender, MouseEventArgs e)
         {
             panelHello.Focus();
+            Cursor = Cursors.Arrow;
+        }
+
+        private void textBoxHello_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+
+        private void textBoxCityName_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+
+        private void textBoxCurrentTime_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+
+        private void pictureBox1_LoadProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+        }
+
+        private void pictureBoxHelloLeft_LoadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+        }
+
+        private void panelBusStops_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelBuses_SizeChanged(object sender, EventArgs e)
+        {
+            dataGridViewBusesList.Height = panelBuses.Height - 163;
+            dataGridViewBusesList.Width = panelBuses.Width - 61;
+            pictureBoxBusesWindowUp.Width = dataGridViewBusesList.Width + 43;
+            pictureBoxBusesWindowDown.Width = dataGridViewBusesList.Width + 43;
+            pictureBoxBusesWindowLeft.Height = dataGridViewBusesList.Height - 9;
+            pictureBoxBusesWindowRight.Height = dataGridViewBusesList.Height - 9;
+        }
+
+        private void panelBusStops_SizeChanged(object sender, EventArgs e)
+        {
+            dataGridViewStopsList.Height = panelBusStops.Height - 172;
+            dataGridViewStopsList.Width = panelBusStops.Width - 53;
+            pictureBoxStopsWindowUp.Width = dataGridViewStopsList.Width + 43;
+            pictureBoxStopsWindowDown.Width = dataGridViewStopsList.Width + 43;
+            pictureBoxStopsWindowLeft.Height = dataGridViewStopsList.Height;
+            pictureBoxStopsWindowRight.Height = dataGridViewStopsList.Height;
         }
     }
 }
