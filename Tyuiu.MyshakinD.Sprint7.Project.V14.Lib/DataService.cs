@@ -92,9 +92,9 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Lib {
             return path;
         } 
 
-        public static string LoadBusStops(string url, string bus_number)
+        public static string LoadBusStops(string url, string bus_number, string orientation)
         {
-            string path = $@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}_stops.csv";
+            string path = $@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}_stops_{orientation}.csv";
 
             if (File.Exists(path))
             {
@@ -160,7 +160,6 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Lib {
 
                             string[] stop_number = stops[i].InnerText.Trim().Split(" ", 2);
 
-                            Console.WriteLine($"{stop_number[0].Replace(")", "")}. {stop_number[1]}: {res_times}");
                             streamWriterStops.WriteLine($"{stop_number[0].Replace(")", "")};{stop_number[1]};{res_times}");
                         }
 
@@ -172,12 +171,12 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Lib {
                 {
                     foreach (var node_stops in nodes_stops)
                     {
-                        Console.WriteLine(node_stops.InnerText.Trim());
+                        streamWriterStops.WriteLine($"{node_stops.InnerText.Trim().Split(" ", 2)[0].Replace(")", "")};{node_stops.InnerText.Trim().Split(" ", 2)[1]}");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"расписания нету :(");
+                    streamWriterStops.WriteLine("Для данного автобуса расписание отсутствует :(");
                 }
             }
 

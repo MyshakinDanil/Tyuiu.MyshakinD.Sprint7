@@ -31,6 +31,8 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             panelAbout = new Panel();
             buttonHelp = new Button();
             panelTop = new Panel();
@@ -335,6 +337,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dataGridViewBusesList.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewBusesList.Location = new Point(31, 141);
+            dataGridViewBusesList.MultiSelect = false;
             dataGridViewBusesList.Name = "dataGridViewBusesList";
             dataGridViewBusesList.ReadOnly = true;
             dataGridViewBusesList.RowHeadersVisible = false;
@@ -458,12 +461,27 @@
             // 
             // dataGridViewStopsList
             // 
+            dataGridViewStopsList.AllowUserToAddRows = false;
+            dataGridViewStopsList.AllowUserToDeleteRows = false;
+            dataGridViewStopsList.AllowUserToResizeColumns = false;
+            dataGridViewStopsList.AllowUserToResizeRows = false;
+            dataGridViewCellStyle4.BackColor = Color.PapayaWhip;
+            dataGridViewCellStyle4.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewStopsList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewStopsList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             dataGridViewStopsList.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewStopsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewStopsList.ColumnHeadersVisible = false;
             dataGridViewStopsList.Location = new Point(27, 141);
             dataGridViewStopsList.Name = "dataGridViewStopsList";
+            dataGridViewStopsList.ReadOnly = true;
+            dataGridViewStopsList.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewStopsList.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewStopsList.Size = new Size(672, 457);
             dataGridViewStopsList.TabIndex = 0;
+            dataGridViewStopsList.TabStop = false;
             // 
             // timerCurrentTime
             // 

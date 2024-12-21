@@ -298,11 +298,62 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             if (radioButtonOrientation.Checked == false) { orientation = "A"; }
             else {  orientation = "B"; }
 
-            string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number.Replace("к", "k").Replace("д", "d").Replace("ж", "zh").Replace("в", "v").Replace("а", "a")}/{orientation}";
+            string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number.Replace("к", "k").Replace("д", "d").Replace("ж", "zh").Replace("в", "v").Replace("а", "a").Replace("э", "e").Replace("р", "r").Replace("б", "b")}/{orientation}";
 
             try
             {
-                DataService.LoadBusStops(url_bus_stops, bus_number);
+                string path = DataService.LoadBusStops(url_bus_stops, bus_number, orientation);
+
+                int len = 0;
+                int maxRowLen = 0;
+
+                dataGridViewStopsList.Rows.Clear();
+                dataGridViewStopsList.Columns.Clear();
+                
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        if (maxRowLen < line.Split(";").Length)
+                        {
+                            maxRowLen = line.Split(";").Length;
+                        }
+                        len++;
+                    }
+                }
+
+                for (int i = 0; i < maxRowLen - 1; i++)
+                {
+                    dataGridViewStopsList.Columns.Add(new DataGridViewTextBoxColumn() { Name = $"column_{i}", HeaderText = $"Столбец {i}"});
+                }
+
+                dataGridViewStopsList.RowCount = len;
+
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        for (int i = 0; i < len; i++)
+                        {
+                            string[] line = sr.ReadLine().Split(";");
+
+                            dataGridViewStopsList.Rows[i].HeaderCell.Value = line[0];
+
+                            for (int j = 1; j < maxRowLen; j++)
+                            {
+                                try
+                                {
+                                    dataGridViewStopsList[j - 1, i].Value = line[j];
+                                }
+                                catch
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             catch
             {
