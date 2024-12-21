@@ -441,6 +441,7 @@
             // 
             // dataGridViewStopsList
             // 
+            dataGridViewStopsList.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewStopsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewStopsList.Location = new Point(27, 141);
             dataGridViewStopsList.Name = "dataGridViewStopsList";

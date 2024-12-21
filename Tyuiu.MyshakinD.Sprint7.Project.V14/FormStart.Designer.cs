@@ -51,9 +51,9 @@
             ClientSize = new Size(540, 500);
             Controls.Add(axWindowsMediaPlayerStartAnimation);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormStart";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
             Click += FormStart_Click;
             ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayerStartAnimation).EndInit();
             ResumeLayout(false);

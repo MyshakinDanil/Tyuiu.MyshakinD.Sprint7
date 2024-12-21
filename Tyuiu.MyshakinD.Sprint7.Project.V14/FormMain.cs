@@ -18,7 +18,6 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             InitializeComponent();
         }
-
         private void FormMain_Load(object sender, EventArgs e)
         {
             if (!DataService.ConnectionAvailable())
@@ -33,37 +32,37 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
             try
             {
-                string path = DataService.LoadBuses();
+                    string path = DataService.LoadBuses();
 
-                int linesCount = 0;
+                    int linesCount = 0;
 
-                using (StreamReader streamreader = new StreamReader(path))
-                {
-                    while (!streamreader.EndOfStream)
+                    using (StreamReader streamreader = new StreamReader(path))
                     {
-                        var line = streamreader.ReadLine();
-                        linesCount++;
-                    }
-                }
-
-                dataGridViewBusesList.Rows.Clear();
-                dataGridViewBusesList.RowCount = linesCount;
-
-                using (StreamReader streamreader = new StreamReader(path))
-                {
-                    while (!streamreader.EndOfStream)
-                    {
-                        for (int row = 0; row <= dataGridViewBusesList.RowCount - 1; row++)
+                        while (!streamreader.EndOfStream)
                         {
-                            string[] currentData = streamreader.ReadLine().Split(";");
+                            var line = streamreader.ReadLine();
+                            linesCount++;
+                        }
+                    }
 
-                            for (int column = 0; column <= dataGridViewBusesList.ColumnCount - 1; column++)
+                    dataGridViewBusesList.Rows.Clear();
+                    dataGridViewBusesList.RowCount = linesCount;
+
+                    using (StreamReader streamreader = new StreamReader(path))
+                    {
+                        while (!streamreader.EndOfStream)
+                        {
+                            for (int row = 0; row <= dataGridViewBusesList.RowCount - 1; row++)
                             {
-                                dataGridViewBusesList[column, row].Value = currentData[column];
+                                string[] currentData = streamreader.ReadLine().Split(";");
+
+                                for (int column = 0; column <= dataGridViewBusesList.ColumnCount - 1; column++)
+                                {
+                                    dataGridViewBusesList[column, row].Value = currentData[column];
+                                }
                             }
                         }
                     }
-                }
             }
             catch
             {

@@ -84,6 +84,30 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Lib {
                         string end_stop = stops[1].Replace("</span>", "");
 
                         streamwriter.WriteLine($"{bus_number};{start_stop};{end_stop}");
+
+                        string path_to_stops = $@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}.csv";
+
+                        var web_stops = new HtmlWeb();
+                        var htmldoc_stops = new HtmlAgilityPack.HtmlDocument();
+                        string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number}/A";
+                        htmldoc_stops.LoadHtml(web.Load(url_bus_stops).Text);
+
+                        var nodes_stops = htmldoc_stops.DocumentNode.SelectNodes("//div[@class='container']//div[@class='row']//div[@class='bus-stops ']//div[@class='row']");
+
+                        bool file_stops_exists = File.Exists(path_to_stops);
+
+                        if (file_stops_exists)
+                        {
+                            File.Delete(path_to_stops);
+                        }
+
+                        using (StreamWriter streamwriter_stops = new StreamWriter(path_to_stops))
+                        {
+                            foreach (var node_stops in nodes_stops)
+                            {
+
+                            }
+                        }
                     }
 
                 }
