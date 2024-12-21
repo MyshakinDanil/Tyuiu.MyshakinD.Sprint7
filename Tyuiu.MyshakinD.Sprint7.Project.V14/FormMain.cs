@@ -32,37 +32,37 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
             try
             {
-                    string path = DataService.LoadBuses();
+                string path = DataService.LoadBuses();
 
-                    int linesCount = 0;
+                int linesCount = 0;
 
-                    using (StreamReader streamreader = new StreamReader(path))
+                using (StreamReader streamreader = new StreamReader(path))
+                {
+                    while (!streamreader.EndOfStream)
                     {
-                        while (!streamreader.EndOfStream)
-                        {
-                            var line = streamreader.ReadLine();
-                            linesCount++;
-                        }
+                        var line = streamreader.ReadLine();
+                        linesCount++;
                     }
+                }
 
-                    dataGridViewBusesList.Rows.Clear();
-                    dataGridViewBusesList.RowCount = linesCount;
+                dataGridViewBusesList.Rows.Clear();
+                dataGridViewBusesList.RowCount = linesCount;
 
-                    using (StreamReader streamreader = new StreamReader(path))
+                using (StreamReader streamreader = new StreamReader(path))
+                {
+                    while (!streamreader.EndOfStream)
                     {
-                        while (!streamreader.EndOfStream)
+                        for (int row = 0; row <= dataGridViewBusesList.RowCount - 1; row++)
                         {
-                            for (int row = 0; row <= dataGridViewBusesList.RowCount - 1; row++)
-                            {
-                                string[] currentData = streamreader.ReadLine().Split(";");
+                            string[] currentData = streamreader.ReadLine().Split(";");
 
-                                for (int column = 0; column <= dataGridViewBusesList.ColumnCount - 1; column++)
-                                {
-                                    dataGridViewBusesList[column, row].Value = currentData[column];
-                                }
+                            for (int column = 0; column <= dataGridViewBusesList.ColumnCount - 1; column++)
+                            {
+                                dataGridViewBusesList[column, row].Value = currentData[column];
                             }
                         }
                     }
+                }
             }
             catch
             {
@@ -288,6 +288,37 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void pictureBoxButtonSearch_MouseUp(object sender, MouseEventArgs e)
         {
             pictureBoxButtonSearch.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_enter.png");
+        }
+
+        private void dataGridViewBusesList_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string bus_number = dataGridViewBusesList[0, dataGridViewBusesList.CurrentCell.RowIndex].Value.ToString();
+
+            string orientation;
+            if (radioButtonOrientation.Checked == false) { orientation = "A"; }
+            else {  orientation = "B"; }
+
+            string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number.Replace("к", "k").Replace("д", "d").Replace("ж", "zh").Replace("в", "v").Replace("а", "a")}/{orientation}";
+
+            try
+            {
+                DataService.LoadBusStops(url_bus_stops, bus_number);
+            }
+            catch
+            {
+                FormNoInternetConnection form = new FormNoInternetConnection();
+                this.Hide();
+                form.ShowDialog();
+            }
+        }
+
+        private void radioButtonOrientation_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (radioButtonOrientation.Checked == false)
+            {
+                radioButtonOrientation.Checked = true;
+            }
+            else { radioButtonOrientation.Checked = false; }
         }
     }
 }

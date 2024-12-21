@@ -84,30 +84,6 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Lib {
                         string end_stop = stops[1].Replace("</span>", "");
 
                         streamwriter.WriteLine($"{bus_number};{start_stop};{end_stop}");
-
-                        string path_to_stops = $@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}.csv";
-
-                        var web_stops = new HtmlWeb();
-                        var htmldoc_stops = new HtmlAgilityPack.HtmlDocument();
-                        string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number}/A";
-                        htmldoc_stops.LoadHtml(web.Load(url_bus_stops).Text);
-
-                        var nodes_stops = htmldoc_stops.DocumentNode.SelectNodes("//div[@class='container']//div[@class='row']//div[@class='bus-stops ']//div[@class='row']");
-
-                        bool file_stops_exists = File.Exists(path_to_stops);
-
-                        if (file_stops_exists)
-                        {
-                            File.Delete(path_to_stops);
-                        }
-
-                        using (StreamWriter streamwriter_stops = new StreamWriter(path_to_stops))
-                        {
-                            foreach (var node_stops in nodes_stops)
-                            {
-
-                            }
-                        }
                     }
 
                 }
@@ -115,6 +91,98 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Lib {
 
             return path;
         } 
+
+        public static string LoadBusStops(string url, string bus_number)
+        {
+            string path = $@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}_stops.csv";
+
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            
+            var web = new HtmlWeb();
+            var htmlDoc = new HtmlAgilityPack.HtmlDocument();
+
+            htmlDoc.LoadHtml(web.Load(url).Text);
+
+            HtmlNodeCollection nodes_stops;
+
+            var stops_time_null = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='container']//div[@class='row']//div[@class='alert alert-info']");
+
+            bool none_time = false;
+
+            if (stops_time_null != null)
+            {
+                if (stops_time_null.InnerText == "Расписания по данному маршруту указаны без учета дней недели")
+                {
+                    nodes_stops = htmlDoc.DocumentNode.SelectNodes("//div[@class='container']//div[@class='row']//div[@class='bus-stops oneline']//div[@class='row']");
+                    none_time = true;
+                }
+                else
+                {
+                    nodes_stops = null;
+                }
+            }
+            else
+            {
+                nodes_stops = htmlDoc.DocumentNode.SelectNodes("//div[@class='container']//div[@class='row']//div[@class='bus-stops ']//div[@class='row']");
+            }
+
+            using (StreamWriter streamWriterStops = new StreamWriter(path))
+            {
+                if (nodes_stops != null && none_time == false)
+                {
+                    foreach (var node_stops in nodes_stops)
+                    {
+                        var stops = node_stops.SelectNodes("//div[@class='container']//div[@class='row']//div[@class='bus-stops ']//div[@class='row']//div[@class='bus-stop col-xs-12 col-sm-6 col-md-6']");
+                        var stops_time = node_stops.SelectNodes("//div[@class='container']//div[@class='row']//div[@class='bus-stops ']//div[@class='row']//div[@class='col-xs-12 col-sm-6 col-md-6 text-right']");
+                        for (int i = 0; i < stops.ToList().Count; i++)
+                        {
+                            string times = stops_time[i].InnerText.Trim().Replace("Показать все", "");
+                            int timesLenght = times.Length / 5;
+
+                            int current_res_time = 0;
+                            string res_times = "";
+
+                            for (int j = 0; j < timesLenght; j++)
+                            {
+                                if (j != timesLenght - 1)
+                                {
+                                    res_times += $"{times[(0 + current_res_time)..(5 + current_res_time)]};";
+                                    current_res_time += 5;
+                                }
+                                else
+                                {
+                                    res_times += $"{times[(0 + current_res_time)..(5 + current_res_time)]}";
+                                }
+                            }
+
+                            string[] stop_number = stops[i].InnerText.Trim().Split(" ", 2);
+
+                            Console.WriteLine($"{stop_number[0].Replace(")", "")}. {stop_number[1]}: {res_times}");
+                            streamWriterStops.WriteLine($"{stop_number[0].Replace(")", "")};{stop_number[1]};{res_times}");
+                        }
+
+                        break;
+
+                    }
+                }
+                else if (nodes_stops != null && none_time == true)
+                {
+                    foreach (var node_stops in nodes_stops)
+                    {
+                        Console.WriteLine(node_stops.InnerText.Trim());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"расписания нету :(");
+                }
+            }
+
+            return path;
+        }
 
     }
 }

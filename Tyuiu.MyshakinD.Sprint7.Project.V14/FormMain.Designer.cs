@@ -54,6 +54,7 @@
             BusEndStop = new DataGridViewTextBoxColumn();
             splitterBusesAndBusStops = new Splitter();
             panelBusStops = new Panel();
+            radioButtonOrientation = new RadioButton();
             pictureBoxStopsWindowDown = new PictureBox();
             pictureBoxStopsWindowRight = new PictureBox();
             pictureBoxStopsWindowLeft = new PictureBox();
@@ -340,6 +341,7 @@
             dataGridViewBusesList.Size = new Size(672, 457);
             dataGridViewBusesList.TabIndex = 0;
             dataGridViewBusesList.TabStop = false;
+            dataGridViewBusesList.CellMouseClick += dataGridViewBusesList_CellMouseClick;
             dataGridViewBusesList.ColumnHeaderMouseClick += dataGridViewBusesList_ColumnHeaderMouseClick;
             // 
             // BusNumber
@@ -383,6 +385,7 @@
             // 
             panelBusStops.BackColor = Color.FromArgb(15, 90, 48);
             panelBusStops.BorderStyle = BorderStyle.FixedSingle;
+            panelBusStops.Controls.Add(radioButtonOrientation);
             panelBusStops.Controls.Add(pictureBoxStopsWindowDown);
             panelBusStops.Controls.Add(pictureBoxStopsWindowRight);
             panelBusStops.Controls.Add(pictureBoxStopsWindowLeft);
@@ -396,6 +399,20 @@
             panelBusStops.SizeChanged += panelBusStops_SizeChanged;
             panelBusStops.Paint += panelBusStops_Paint;
             panelBusStops.MouseMove += panelBusStops_MouseMove;
+            // 
+            // radioButtonOrientation
+            // 
+            radioButtonOrientation.AutoCheck = false;
+            radioButtonOrientation.AutoSize = true;
+            radioButtonOrientation.FlatStyle = FlatStyle.Flat;
+            radioButtonOrientation.Font = new Font("Consolas", 12F, FontStyle.Bold);
+            radioButtonOrientation.Location = new Point(5, 58);
+            radioButtonOrientation.Name = "radioButtonOrientation";
+            radioButtonOrientation.Size = new Size(206, 23);
+            radioButtonOrientation.TabIndex = 5;
+            radioButtonOrientation.Text = "Обратное направление";
+            radioButtonOrientation.UseVisualStyleBackColor = true;
+            radioButtonOrientation.MouseClick += radioButtonOrientation_MouseClick;
             // 
             // pictureBoxStopsWindowDown
             // 
@@ -492,6 +509,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowUp).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBusesList).EndInit();
             panelBusStops.ResumeLayout(false);
+            panelBusStops.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowDown).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowRight).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowLeft).EndInit();
@@ -531,5 +549,6 @@
         private DataGridViewTextBoxColumn BusEndStop;
         private PictureBox pictureBoxButtonUpdate;
         private PictureBox pictureBoxButtonSearch;
+        private RadioButton radioButtonOrientation;
     }
 }

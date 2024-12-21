@@ -18,5 +18,17 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Test {
             FileInfo fileInfo = new FileInfo(path);
             Assert.IsTrue(fileInfo.Exists);
         }
+
+        [TestMethod]
+        public void CheckStopsLoading()
+        {
+            string bus_number = "1";
+            string orientation = "A";
+            string url = $"https://kudikina.ru/tmn/bus/{bus_number.Replace("ê", "k").Replace("ä", "d").Replace("æ", "zh").Replace("â", "v").Replace("à", "a")}/{orientation}";
+
+            string path = DataService.LoadBusStops(url, bus_number);
+
+            Assert.IsTrue(File.Exists(path));
+        }
     }
 }
