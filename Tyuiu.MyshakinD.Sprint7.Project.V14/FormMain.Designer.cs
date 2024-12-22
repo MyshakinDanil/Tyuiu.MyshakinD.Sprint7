@@ -44,6 +44,16 @@
             textBoxCityName = new TextBox();
             pictureBoxCity = new PictureBox();
             panelBuses = new Panel();
+            panelSearching = new Panel();
+            pictureBoxSearchByStopNameButton = new PictureBox();
+            pictureBoxSearchByBusNumberButton = new PictureBox();
+            textBoxStopNameSearch = new TextBox();
+            textBoxBusNumberSearch = new TextBox();
+            pictureBoxSearchByStopNameLabel = new PictureBox();
+            pictureBoxSearchByBusNumberLabel = new PictureBox();
+            buttonCancel = new Button();
+            pictureBoxSearchLabel = new PictureBox();
+            pictureBoxBusListLabel = new PictureBox();
             pictureBoxButtonSearch = new PictureBox();
             pictureBoxButtonUpdate = new PictureBox();
             pictureBoxBusesWindowDown = new PictureBox();
@@ -56,6 +66,10 @@
             BusEndStop = new DataGridViewTextBoxColumn();
             splitterBusesAndBusStops = new Splitter();
             panelBusStops = new Panel();
+            pictureBoxSaveButton = new PictureBox();
+            textBoxBusNumber = new TextBox();
+            pictureBoxBusNumberLabel = new PictureBox();
+            pictureBoxBusStopsLabel = new PictureBox();
             radioButtonOrientation = new RadioButton();
             pictureBoxStopsWindowDown = new PictureBox();
             pictureBoxStopsWindowRight = new PictureBox();
@@ -63,6 +77,7 @@
             pictureBoxStopsWindowUp = new PictureBox();
             dataGridViewStopsList = new DataGridView();
             timerCurrentTime = new System.Windows.Forms.Timer(components);
+            folderBrowserDialogSaveStopsList = new FolderBrowserDialog();
             panelAbout.SuspendLayout();
             panelTop.SuspendLayout();
             panelHello.SuspendLayout();
@@ -70,6 +85,13 @@
             panelChangeCity.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCity).BeginInit();
             panelBuses.SuspendLayout();
+            panelSearching.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByStopNameButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByBusNumberButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByStopNameLabel).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByBusNumberLabel).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchLabel).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusListLabel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxButtonSearch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxButtonUpdate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowDown).BeginInit();
@@ -78,6 +100,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowUp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBusesList).BeginInit();
             panelBusStops.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSaveButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusNumberLabel).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusStopsLabel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowRight).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowLeft).BeginInit();
@@ -229,6 +254,8 @@
             // 
             panelBuses.BackColor = Color.FromArgb(15, 90, 48);
             panelBuses.BorderStyle = BorderStyle.FixedSingle;
+            panelBuses.Controls.Add(panelSearching);
+            panelBuses.Controls.Add(pictureBoxBusListLabel);
             panelBuses.Controls.Add(pictureBoxButtonSearch);
             panelBuses.Controls.Add(pictureBoxButtonUpdate);
             panelBuses.Controls.Add(pictureBoxBusesWindowDown);
@@ -243,6 +270,122 @@
             panelBuses.TabIndex = 6;
             panelBuses.SizeChanged += panelBuses_SizeChanged;
             panelBuses.MouseMove += panelBuses_MouseMove;
+            // 
+            // panelSearching
+            // 
+            panelSearching.BorderStyle = BorderStyle.FixedSingle;
+            panelSearching.Controls.Add(pictureBoxSearchByStopNameButton);
+            panelSearching.Controls.Add(pictureBoxSearchByBusNumberButton);
+            panelSearching.Controls.Add(textBoxStopNameSearch);
+            panelSearching.Controls.Add(textBoxBusNumberSearch);
+            panelSearching.Controls.Add(pictureBoxSearchByStopNameLabel);
+            panelSearching.Controls.Add(pictureBoxSearchByBusNumberLabel);
+            panelSearching.Controls.Add(buttonCancel);
+            panelSearching.Controls.Add(pictureBoxSearchLabel);
+            panelSearching.Location = new Point(-344, 150);
+            panelSearching.Name = "panelSearching";
+            panelSearching.Size = new Size(343, 406);
+            panelSearching.TabIndex = 11;
+            // 
+            // pictureBoxSearchByStopNameButton
+            // 
+            pictureBoxSearchByStopNameButton.BackColor = Color.FromArgb(255, 233, 197);
+            pictureBoxSearchByStopNameButton.Image = (Image)resources.GetObject("pictureBoxSearchByStopNameButton.Image");
+            pictureBoxSearchByStopNameButton.Location = new Point(118, 306);
+            pictureBoxSearchByStopNameButton.Name = "pictureBoxSearchByStopNameButton";
+            pictureBoxSearchByStopNameButton.Size = new Size(113, 26);
+            pictureBoxSearchByStopNameButton.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxSearchByStopNameButton.TabIndex = 10;
+            pictureBoxSearchByStopNameButton.TabStop = false;
+            pictureBoxSearchByStopNameButton.MouseDown += pictureBoxSearchByStopNameButton_MouseDown;
+            pictureBoxSearchByStopNameButton.MouseEnter += pictureBoxSearchByStopNameButton_MouseEnter;
+            pictureBoxSearchByStopNameButton.MouseLeave += pictureBoxSearchByStopNameButton_MouseLeave;
+            pictureBoxSearchByStopNameButton.MouseUp += pictureBoxSearchByStopNameButton_MouseUp;
+            // 
+            // pictureBoxSearchByBusNumberButton
+            // 
+            pictureBoxSearchByBusNumberButton.BackColor = Color.FromArgb(255, 233, 197);
+            pictureBoxSearchByBusNumberButton.Image = (Image)resources.GetObject("pictureBoxSearchByBusNumberButton.Image");
+            pictureBoxSearchByBusNumberButton.Location = new Point(118, 150);
+            pictureBoxSearchByBusNumberButton.Name = "pictureBoxSearchByBusNumberButton";
+            pictureBoxSearchByBusNumberButton.Size = new Size(113, 26);
+            pictureBoxSearchByBusNumberButton.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxSearchByBusNumberButton.TabIndex = 9;
+            pictureBoxSearchByBusNumberButton.TabStop = false;
+            pictureBoxSearchByBusNumberButton.MouseDown += pictureBoxSearchByBusNumberButton_MouseDown;
+            pictureBoxSearchByBusNumberButton.MouseEnter += pictureBoxSearchByBusNumberButton_MouseEnter;
+            pictureBoxSearchByBusNumberButton.MouseLeave += pictureBoxSearchByBusNumberButton_MouseLeave;
+            pictureBoxSearchByBusNumberButton.MouseUp += pictureBoxSearchByBusNumberButton_MouseUp;
+            // 
+            // textBoxStopNameSearch
+            // 
+            textBoxStopNameSearch.Font = new Font("Consolas", 12F);
+            textBoxStopNameSearch.Location = new Point(60, 265);
+            textBoxStopNameSearch.Name = "textBoxStopNameSearch";
+            textBoxStopNameSearch.Size = new Size(217, 26);
+            textBoxStopNameSearch.TabIndex = 8;
+            // 
+            // textBoxBusNumberSearch
+            // 
+            textBoxBusNumberSearch.Font = new Font("Consolas", 12F);
+            textBoxBusNumberSearch.Location = new Point(60, 109);
+            textBoxBusNumberSearch.Name = "textBoxBusNumberSearch";
+            textBoxBusNumberSearch.Size = new Size(217, 26);
+            textBoxBusNumberSearch.TabIndex = 7;
+            // 
+            // pictureBoxSearchByStopNameLabel
+            // 
+            pictureBoxSearchByStopNameLabel.Image = (Image)resources.GetObject("pictureBoxSearchByStopNameLabel.Image");
+            pictureBoxSearchByStopNameLabel.Location = new Point(3, 224);
+            pictureBoxSearchByStopNameLabel.Name = "pictureBoxSearchByStopNameLabel";
+            pictureBoxSearchByStopNameLabel.Size = new Size(332, 117);
+            pictureBoxSearchByStopNameLabel.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxSearchByStopNameLabel.TabIndex = 6;
+            pictureBoxSearchByStopNameLabel.TabStop = false;
+            // 
+            // pictureBoxSearchByBusNumberLabel
+            // 
+            pictureBoxSearchByBusNumberLabel.Image = (Image)resources.GetObject("pictureBoxSearchByBusNumberLabel.Image");
+            pictureBoxSearchByBusNumberLabel.Location = new Point(3, 68);
+            pictureBoxSearchByBusNumberLabel.Name = "pictureBoxSearchByBusNumberLabel";
+            pictureBoxSearchByBusNumberLabel.Size = new Size(332, 117);
+            pictureBoxSearchByBusNumberLabel.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxSearchByBusNumberLabel.TabIndex = 5;
+            pictureBoxSearchByBusNumberLabel.TabStop = false;
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonCancel.BackgroundImageLayout = ImageLayout.None;
+            buttonCancel.FlatAppearance.BorderSize = 0;
+            buttonCancel.FlatStyle = FlatStyle.Flat;
+            buttonCancel.Image = (Image)resources.GetObject("buttonCancel.Image");
+            buttonCancel.Location = new Point(296, -1);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(46, 36);
+            buttonCancel.TabIndex = 2;
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
+            // 
+            // pictureBoxSearchLabel
+            // 
+            pictureBoxSearchLabel.Image = (Image)resources.GetObject("pictureBoxSearchLabel.Image");
+            pictureBoxSearchLabel.Location = new Point(82, 10);
+            pictureBoxSearchLabel.Name = "pictureBoxSearchLabel";
+            pictureBoxSearchLabel.Size = new Size(187, 43);
+            pictureBoxSearchLabel.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxSearchLabel.TabIndex = 1;
+            pictureBoxSearchLabel.TabStop = false;
+            // 
+            // pictureBoxBusListLabel
+            // 
+            pictureBoxBusListLabel.Image = (Image)resources.GetObject("pictureBoxBusListLabel.Image");
+            pictureBoxBusListLabel.Location = new Point(130, 44);
+            pictureBoxBusListLabel.Name = "pictureBoxBusListLabel";
+            pictureBoxBusListLabel.Size = new Size(477, 37);
+            pictureBoxBusListLabel.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxBusListLabel.TabIndex = 10;
+            pictureBoxBusListLabel.TabStop = false;
             // 
             // pictureBoxButtonSearch
             // 
@@ -260,6 +403,7 @@
             // 
             // pictureBoxButtonUpdate
             // 
+            pictureBoxButtonUpdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBoxButtonUpdate.Image = (Image)resources.GetObject("pictureBoxButtonUpdate.Image");
             pictureBoxButtonUpdate.Location = new Point(613, 58);
             pictureBoxButtonUpdate.Name = "pictureBoxButtonUpdate";
@@ -377,8 +521,8 @@
             // 
             splitterBusesAndBusStops.BackColor = Color.SeaGreen;
             splitterBusesAndBusStops.Location = new Point(733, 100);
-            splitterBusesAndBusStops.MinExtra = 200;
-            splitterBusesAndBusStops.MinSize = 200;
+            splitterBusesAndBusStops.MinExtra = 733;
+            splitterBusesAndBusStops.MinSize = 733;
             splitterBusesAndBusStops.Name = "splitterBusesAndBusStops";
             splitterBusesAndBusStops.Size = new Size(10, 629);
             splitterBusesAndBusStops.TabIndex = 7;
@@ -388,6 +532,10 @@
             // 
             panelBusStops.BackColor = Color.FromArgb(15, 90, 48);
             panelBusStops.BorderStyle = BorderStyle.FixedSingle;
+            panelBusStops.Controls.Add(pictureBoxSaveButton);
+            panelBusStops.Controls.Add(textBoxBusNumber);
+            panelBusStops.Controls.Add(pictureBoxBusNumberLabel);
+            panelBusStops.Controls.Add(pictureBoxBusStopsLabel);
             panelBusStops.Controls.Add(radioButtonOrientation);
             panelBusStops.Controls.Add(pictureBoxStopsWindowDown);
             panelBusStops.Controls.Add(pictureBoxStopsWindowRight);
@@ -403,10 +551,61 @@
             panelBusStops.Paint += panelBusStops_Paint;
             panelBusStops.MouseMove += panelBusStops_MouseMove;
             // 
+            // pictureBoxSaveButton
+            // 
+            pictureBoxSaveButton.Image = (Image)resources.GetObject("pictureBoxSaveButton.Image");
+            pictureBoxSaveButton.Location = new Point(579, 58);
+            pictureBoxSaveButton.Name = "pictureBoxSaveButton";
+            pictureBoxSaveButton.Size = new Size(133, 23);
+            pictureBoxSaveButton.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxSaveButton.TabIndex = 11;
+            pictureBoxSaveButton.TabStop = false;
+            pictureBoxSaveButton.DragEnter += pictureBox1_DragEnter;
+            pictureBoxSaveButton.MouseDown += pictureBoxSaveButton_MouseDown;
+            pictureBoxSaveButton.MouseEnter += pictureBoxSaveButton_MouseEnter;
+            pictureBoxSaveButton.MouseLeave += pictureBoxSaveButton_MouseLeave;
+            pictureBoxSaveButton.MouseUp += pictureBoxSaveButton_MouseUp;
+            // 
+            // textBoxBusNumber
+            // 
+            textBoxBusNumber.BackColor = Color.FromArgb(255, 233, 197);
+            textBoxBusNumber.BorderStyle = BorderStyle.None;
+            textBoxBusNumber.Font = new Font("Consolas", 11F);
+            textBoxBusNumber.Location = new Point(236, 61);
+            textBoxBusNumber.Name = "textBoxBusNumber";
+            textBoxBusNumber.ReadOnly = true;
+            textBoxBusNumber.Size = new Size(268, 18);
+            textBoxBusNumber.TabIndex = 9;
+            textBoxBusNumber.TabStop = false;
+            textBoxBusNumber.TextAlign = HorizontalAlignment.Center;
+            textBoxBusNumber.MouseDown += textBoxBusNumber_MouseDown;
+            textBoxBusNumber.MouseMove += textBoxBusNumber_MouseMove;
+            // 
+            // pictureBoxBusNumberLabel
+            // 
+            pictureBoxBusNumberLabel.Image = (Image)resources.GetObject("pictureBoxBusNumberLabel.Image");
+            pictureBoxBusNumberLabel.Location = new Point(217, 58);
+            pictureBoxBusNumberLabel.Name = "pictureBoxBusNumberLabel";
+            pictureBoxBusNumberLabel.Size = new Size(304, 23);
+            pictureBoxBusNumberLabel.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxBusNumberLabel.TabIndex = 8;
+            pictureBoxBusNumberLabel.TabStop = false;
+            // 
+            // pictureBoxBusStopsLabel
+            // 
+            pictureBoxBusStopsLabel.Image = (Image)resources.GetObject("pictureBoxBusStopsLabel.Image");
+            pictureBoxBusStopsLabel.Location = new Point(130, 15);
+            pictureBoxBusStopsLabel.Name = "pictureBoxBusStopsLabel";
+            pictureBoxBusStopsLabel.Size = new Size(477, 37);
+            pictureBoxBusStopsLabel.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxBusStopsLabel.TabIndex = 6;
+            pictureBoxBusStopsLabel.TabStop = false;
+            // 
             // radioButtonOrientation
             // 
             radioButtonOrientation.AutoCheck = false;
             radioButtonOrientation.AutoSize = true;
+            radioButtonOrientation.BackgroundImage = (Image)resources.GetObject("radioButtonOrientation.BackgroundImage");
             radioButtonOrientation.FlatStyle = FlatStyle.Flat;
             radioButtonOrientation.Font = new Font("Consolas", 12F, FontStyle.Bold);
             radioButtonOrientation.Location = new Point(5, 58);
@@ -488,6 +687,10 @@
             timerCurrentTime.Enabled = true;
             timerCurrentTime.Tick += timerCurrentTime_Tick;
             // 
+            // folderBrowserDialogSaveStopsList
+            // 
+            folderBrowserDialogSaveStopsList.HelpRequest += folderBrowserDialogSaveStopsList_HelpRequest;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 14F);
@@ -519,6 +722,14 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxCity).EndInit();
             panelBuses.ResumeLayout(false);
             panelBuses.PerformLayout();
+            panelSearching.ResumeLayout(false);
+            panelSearching.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByStopNameButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByBusNumberButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByStopNameLabel).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchByBusNumberLabel).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSearchLabel).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusListLabel).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxButtonSearch).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxButtonUpdate).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowDown).EndInit();
@@ -528,6 +739,9 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewBusesList).EndInit();
             panelBusStops.ResumeLayout(false);
             panelBusStops.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxSaveButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusNumberLabel).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBusStopsLabel).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowDown).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowRight).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxStopsWindowLeft).EndInit();
@@ -568,5 +782,20 @@
         private PictureBox pictureBoxButtonUpdate;
         private PictureBox pictureBoxButtonSearch;
         private RadioButton radioButtonOrientation;
+        private PictureBox pictureBoxBusListLabel;
+        private PictureBox pictureBoxBusStopsLabel;
+        private TextBox textBoxBusNumber;
+        private PictureBox pictureBoxBusNumberLabel;
+        private FolderBrowserDialog folderBrowserDialogSaveStopsList;
+        private PictureBox pictureBoxSaveButton;
+        private Panel panelSearching;
+        private Button buttonCancel;
+        private PictureBox pictureBoxSearchLabel;
+        private PictureBox pictureBoxSearchByBusNumberLabel;
+        private PictureBox pictureBoxSearchByStopNameLabel;
+        private PictureBox pictureBoxSearchByStopNameButton;
+        private PictureBox pictureBoxSearchByBusNumberButton;
+        private TextBox textBoxStopNameSearch;
+        private TextBox textBoxBusNumberSearch;
     }
 }

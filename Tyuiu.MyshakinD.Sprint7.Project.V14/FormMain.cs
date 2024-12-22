@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using Tyuiu.MyshakinD.Sprint7.Project.V14.Lib;
 using System.ComponentModel;
@@ -192,6 +193,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             pictureBoxBusesWindowDown.Width = dataGridViewBusesList.Width + 43;
             pictureBoxBusesWindowLeft.Height = dataGridViewBusesList.Height - 9;
             pictureBoxBusesWindowRight.Height = dataGridViewBusesList.Height - 9;
+            pictureBoxBusListLabel.Left = (panelBuses.Width - pictureBoxBusListLabel.Width) / 2;
         }
 
         private void panelBusStops_SizeChanged(object sender, EventArgs e)
@@ -202,6 +204,9 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             pictureBoxStopsWindowDown.Width = dataGridViewStopsList.Width + 43;
             pictureBoxStopsWindowLeft.Height = dataGridViewStopsList.Height;
             pictureBoxStopsWindowRight.Height = dataGridViewStopsList.Height;
+            pictureBoxBusStopsLabel.Left = (panelBusStops.Width - pictureBoxBusStopsLabel.Width) / 2;
+            pictureBoxBusNumberLabel.Left = (panelBusStops.Width - pictureBoxBusNumberLabel.Width) / 2;
+            textBoxBusNumber.Left = (panelBusStops.Width - textBoxBusNumber.Width) / 2;
         }
 
         private void dataGridViewBusesList_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -222,6 +227,8 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void pictureBoxButtonUpdate_MouseDown(object sender, MouseEventArgs e)
         {
             pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_click.png");
+
+            textBoxBusNumber.Text = "";
 
             try
             {
@@ -283,6 +290,15 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void pictureBoxButtonSearch_MouseDown(object sender, MouseEventArgs e)
         {
             pictureBoxButtonSearch.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
+
+            int k = 90;
+            int x = 1;
+
+            while (panelSearching.Left < 0)
+            {
+                panelSearching.Left += k / x;
+                x++;
+            }
         }
 
         private void pictureBoxButtonSearch_MouseUp(object sender, MouseEventArgs e)
@@ -294,9 +310,11 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             string bus_number = dataGridViewBusesList[0, dataGridViewBusesList.CurrentCell.RowIndex].Value.ToString();
 
+            textBoxBusNumber.Text = $"Расписание автобуса №{bus_number}";
+
             string orientation;
             if (radioButtonOrientation.Checked == false) { orientation = "A"; }
-            else {  orientation = "B"; }
+            else { orientation = "B"; }
 
             string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number.Replace("к", "k").Replace("д", "d").Replace("ж", "zh").Replace("в", "v").Replace("а", "a").Replace("э", "e").Replace("р", "r").Replace("б", "b")}/{orientation}";
 
@@ -309,7 +327,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
                 dataGridViewStopsList.Rows.Clear();
                 dataGridViewStopsList.Columns.Clear();
-                
+
                 using (StreamReader reader = new StreamReader(path))
                 {
                     while (!reader.EndOfStream)
@@ -325,7 +343,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
                 for (int i = 0; i < maxRowLen - 1; i++)
                 {
-                    dataGridViewStopsList.Columns.Add(new DataGridViewTextBoxColumn() { Name = $"column_{i}", HeaderText = $"Столбец {i}"});
+                    dataGridViewStopsList.Columns.Add(new DataGridViewTextBoxColumn() { Name = $"column_{i}", HeaderText = $"Столбец {i}" });
                 }
 
                 dataGridViewStopsList.RowCount = len;
@@ -370,6 +388,139 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
                 radioButtonOrientation.Checked = true;
             }
             else { radioButtonOrientation.Checked = false; }
+        }
+
+        private void textBoxBusNumber_MouseMove(object sender, MouseEventArgs e)
+        {
+            panelBusStops.Focus();
+            Cursor = Cursors.Arrow;
+        }
+
+        private void textBoxBusNumber_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+
+        private void folderBrowserDialogSaveStopsList_HelpRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void pictureBoxSaveButton_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxSaveButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_save_enter.png");
+        }
+
+        private void pictureBoxSaveButton_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxSaveButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_save_sleep.png");
+        }
+
+        private void pictureBoxSaveButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBoxSaveButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_save_click.png");
+
+            if (textBoxBusNumber.Text.Length > 0)
+            {
+                string bus_number = textBoxBusNumber.Text.Split("№")[1];
+
+                string orientation;
+                if (radioButtonOrientation.Checked == false) { orientation = "A"; }
+                else { orientation = "B"; }
+
+                FolderBrowserDialog folder = new FolderBrowserDialog();
+                if (folder.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.Copy($@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}_stops_{orientation}.csv", Path.Combine(folder.SelectedPath, $"{bus_number}_stops_{orientation}.csv"));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, сначала выберите необходимое расписание.", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void pictureBoxSaveButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxSaveButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_save_enter.png");
+        }
+
+        private void pictureBoxSearchByBusNumberButton_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxSearchByBusNumberButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_enter.png");
+        }
+
+        private void pictureBoxSearchByBusNumberButton_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxSearchByBusNumberButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_sleep.png");
+        }
+
+        private void pictureBoxSearchByBusNumberButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBoxSearchByBusNumberButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
+
+            if (textBoxBusNumberSearch.Text.Length > 0 )
+            {
+                string path = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
+                dataGridViewBusesList.Rows.Clear();
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string line = sr.ReadLine();
+                        string current_bus_number = line.Split(";")[0];
+                        if (current_bus_number.Contains(textBoxBusNumberSearch.Text))
+                        {
+                            dataGridViewBusesList.Rows.Add(current_bus_number, line.Split(";")[1], line.Split(";")[2]);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Для начала введите номер автобуса", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop );
+            }
+        }
+
+        private void pictureBoxSearchByBusNumberButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxSearchByBusNumberButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_enter.png");
+        }
+
+        private void pictureBoxSearchByStopNameButton_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxSearchByStopNameButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_enter.png");
+        }
+
+        private void pictureBoxSearchByStopNameButton_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxSearchByStopNameButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_sleep.png");
+        }
+
+        private void pictureBoxSearchByStopNameButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBoxSearchByStopNameButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
+        }
+
+        private void pictureBoxSearchByStopNameButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxSearchByStopNameButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_enter.png");
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            int k = 90;
+            int x = 1;
+            while (panelSearching.Left > - 344)
+            {
+                panelSearching.Left -= k / x;
+                x++;
+            }
         }
     }
 }
