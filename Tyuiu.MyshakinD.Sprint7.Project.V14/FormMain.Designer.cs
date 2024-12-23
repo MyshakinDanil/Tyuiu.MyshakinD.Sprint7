@@ -553,6 +553,7 @@
             // 
             // pictureBoxSaveButton
             // 
+            pictureBoxSaveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBoxSaveButton.Image = (Image)resources.GetObject("pictureBoxSaveButton.Image");
             pictureBoxSaveButton.Location = new Point(579, 58);
             pictureBoxSaveButton.Name = "pictureBoxSaveButton";
@@ -703,7 +704,7 @@
             Controls.Add(panelAbout);
             Font = new Font("Consolas", 9F);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(1432, 751);
+            MinimumSize = new Size(1484, 797);
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bus_Is_Gone";

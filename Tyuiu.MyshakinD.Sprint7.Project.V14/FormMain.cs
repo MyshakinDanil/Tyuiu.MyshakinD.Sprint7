@@ -229,6 +229,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_click.png");
 
             textBoxBusNumber.Text = "";
+            dataGridViewStopsList.Rows.Clear();
 
             try
             {
