@@ -505,6 +505,38 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void pictureBoxSearchByStopNameButton_MouseDown(object sender, MouseEventArgs e)
         {
             pictureBoxSearchByStopNameButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
+
+            string request = textBoxStopNameSearch.Text;
+            
+            if (request == "")
+            {
+                MessageBox.Show("Пожалуйста, сначала введите название остановки.", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                string[] busList = DataService.SearchByStop(request);
+
+                string path = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
+
+                dataGridViewBusesList.Rows.Clear();
+
+                foreach (string bus in busList)
+                {
+                    using (StreamReader sr = new StreamReader(path))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string line = sr.ReadLine();
+                            string currentBus = line.Split(";")[0];
+
+                            if (currentBus == bus)
+                            {
+                                dataGridViewBusesList.Rows.Add(currentBus, line.Split(";")[1], line.Split(";")[2]);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void pictureBoxSearchByStopNameButton_MouseUp(object sender, MouseEventArgs e)

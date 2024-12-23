@@ -183,5 +183,160 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Lib {
             return path;
         }
 
+        public static string[] SearchByStop(string request)
+        {
+            string pathToBuses = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
+
+            int lenght = 0;
+
+            using (StreamReader sr1 = new StreamReader(pathToBuses))
+            {
+                while (!sr1.EndOfStream)
+                {
+                    string line1 = sr1.ReadLine();
+
+                    string busNum = line1.Split(";")[0];
+                    string pathToBusStops = $@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{busNum}_stops_A.csv";
+
+                    try
+                    {
+
+                        using (StreamReader sr2 = new StreamReader(pathToBusStops))
+                        {
+                            while (!sr2.EndOfStream)
+                            {
+                                string line2 = sr2.ReadLine();
+
+                                if (line2.Contains("Для данного автобуса расписание отсутствует :("))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    string currentStop = line2.Split(";")[1];
+
+                                    if (currentStop.ToLower().Contains(request.ToLower()))
+                                    {
+                                        lenght++;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        string url = $"https://kudikina.ru/tmn/bus/{busNum}/A";
+                        string orientation = "A";
+
+                        
+                        LoadBusStops(url, busNum, orientation);
+
+                        using (StreamReader sr2 = new StreamReader(pathToBusStops))
+                        {
+                            while (!sr2.EndOfStream)
+                            {
+                                string line = sr2.ReadLine();
+                                
+                                if (line.Contains("Для данного автобуса расписание отсутствует :("))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    string currentStop = line.Split(";")[1];
+
+                                    if (currentStop.ToLower().Contains(request.ToLower()))
+                                    {
+                                        lenght++;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            string[] res = new string[lenght];
+
+            int i = 0;
+            
+            using (StreamReader sr1 = new StreamReader(pathToBuses))
+            {
+                while (!sr1.EndOfStream)
+                {
+                    string line1 = sr1.ReadLine();
+
+                    string busNum = line1.Split(";")[0];
+                    string pathToBusStops = $@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{busNum}_stops_A.csv";
+
+                    try
+                    {
+
+                        using (StreamReader sr2 = new StreamReader(pathToBusStops))
+                        {
+                            while (!sr2.EndOfStream)
+                            {
+                                string line2 = sr2.ReadLine();
+
+                                if (line2.Contains("Для данного автобуса расписание отсутствует :("))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    string currentStop = line2.Split(";")[1];
+
+                                    if (currentStop.ToLower().Contains(request.ToLower()))
+                                    {
+                                        res[i] = busNum;
+                                        i++;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        string url = $"https://kudikina.ru/tmn/bus/{busNum}/A";
+                        string orientation = "A";
+
+
+                        LoadBusStops(url, busNum, orientation);
+
+                        using (StreamReader sr2 = new StreamReader(pathToBusStops))
+                        {
+                            while (!sr2.EndOfStream)
+                            {
+                                string line = sr2.ReadLine();
+
+                                if (line.Contains("Для данного автобуса расписание отсутствует :("))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    string currentStop = line.Split(";")[1];
+
+                                    if (currentStop.ToLower().Contains(request.ToLower()))
+                                    {
+                                        res[i] = busNum;
+                                        i++;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            string[] result = res.Distinct().ToArray();
+            
+            return result;
+        }
+
     }
 }

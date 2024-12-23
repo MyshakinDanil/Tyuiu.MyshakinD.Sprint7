@@ -30,5 +30,21 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14.Test {
 
             Assert.IsTrue(File.Exists(path));
         }
+
+        [TestMethod]
+        public void CheckSearchingByStop()
+        {
+            string request = "Кудыкина гора";
+            
+            string[] res = DataService.SearchByStop(request);
+
+            string[] wait = [];
+
+            foreach (string str in res)
+            {
+                Console.WriteLine(str);
+            }
+            CollectionAssert.AreEqual(wait, res);
+        }
     }
 }
