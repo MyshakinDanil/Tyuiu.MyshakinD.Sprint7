@@ -66,6 +66,7 @@
             BusEndStop = new DataGridViewTextBoxColumn();
             splitterBusesAndBusStops = new Splitter();
             panelBusStops = new Panel();
+            textBoxAlert = new TextBox();
             pictureBoxSaveButton = new PictureBox();
             textBoxBusNumber = new TextBox();
             pictureBoxBusNumberLabel = new PictureBox();
@@ -134,6 +135,7 @@
             buttonHelp.TabIndex = 0;
             buttonHelp.TabStop = false;
             buttonHelp.UseVisualStyleBackColor = true;
+            buttonHelp.Click += buttonHelp_Click;
             // 
             // panelTop
             // 
@@ -532,6 +534,7 @@
             // 
             panelBusStops.BackColor = Color.FromArgb(15, 90, 48);
             panelBusStops.BorderStyle = BorderStyle.FixedSingle;
+            panelBusStops.Controls.Add(textBoxAlert);
             panelBusStops.Controls.Add(pictureBoxSaveButton);
             panelBusStops.Controls.Add(textBoxBusNumber);
             panelBusStops.Controls.Add(pictureBoxBusNumberLabel);
@@ -550,6 +553,23 @@
             panelBusStops.SizeChanged += panelBusStops_SizeChanged;
             panelBusStops.Paint += panelBusStops_Paint;
             panelBusStops.MouseMove += panelBusStops_MouseMove;
+            // 
+            // textBoxAlert
+            // 
+            textBoxAlert.BackColor = Color.DarkSeaGreen;
+            textBoxAlert.BorderStyle = BorderStyle.None;
+            textBoxAlert.Font = new Font("Consolas", 15F, FontStyle.Bold);
+            textBoxAlert.Location = new Point(168, 301);
+            textBoxAlert.Multiline = true;
+            textBoxAlert.Name = "textBoxAlert";
+            textBoxAlert.ReadOnly = true;
+            textBoxAlert.Size = new Size(391, 96);
+            textBoxAlert.TabIndex = 12;
+            textBoxAlert.TabStop = false;
+            textBoxAlert.Text = "Нажмите на строку с необходимым номером автобуса, для отображения его остановок.";
+            textBoxAlert.TextAlign = HorizontalAlignment.Center;
+            textBoxAlert.MouseDown += textBoxAlert_MouseDown;
+            textBoxAlert.MouseMove += textBoxAlert_MouseMove;
             // 
             // pictureBoxSaveButton
             // 
@@ -798,5 +818,6 @@
         private PictureBox pictureBoxSearchByBusNumberButton;
         private TextBox textBoxStopNameSearch;
         private TextBox textBoxBusNumberSearch;
+        private TextBox textBoxAlert;
     }
 }

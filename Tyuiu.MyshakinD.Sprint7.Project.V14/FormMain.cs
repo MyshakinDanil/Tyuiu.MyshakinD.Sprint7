@@ -31,6 +31,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             textBoxHello.Width = panelHello.Width - 50;
             textBoxHello.Height = panelHello.Height - 20;
 
+
             try
             {
                 string path = DataService.LoadBuses();
@@ -207,6 +208,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             pictureBoxBusStopsLabel.Left = (panelBusStops.Width - pictureBoxBusStopsLabel.Width) / 2;
             pictureBoxBusNumberLabel.Left = (panelBusStops.Width - pictureBoxBusNumberLabel.Width) / 2;
             textBoxBusNumber.Left = (panelBusStops.Width - textBoxBusNumber.Width) / 2;
+            textBoxAlert.Left = (panelBusStops.Width - textBoxAlert.Width) / 2;
         }
 
         private void dataGridViewBusesList_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -226,6 +228,8 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
         private void pictureBoxButtonUpdate_MouseDown(object sender, MouseEventArgs e)
         {
+            textBoxAlert.Visible = true;
+
             pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_click.png");
 
             textBoxBusNumber.Text = "";
@@ -309,6 +313,8 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
         private void dataGridViewBusesList_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            textBoxAlert.Visible = false;
+
             string bus_number = dataGridViewBusesList[0, dataGridViewBusesList.CurrentCell.RowIndex].Value.ToString();
 
             textBoxBusNumber.Text = $"Расписание автобуса №{bus_number}";
@@ -465,7 +471,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             pictureBoxSearchByBusNumberButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
 
-            if (textBoxBusNumberSearch.Text.Length > 0 )
+            if (textBoxBusNumberSearch.Text.Length > 0)
             {
                 string path = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
                 dataGridViewBusesList.Rows.Clear();
@@ -484,7 +490,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             }
             else
             {
-                MessageBox.Show("Для начала введите номер автобуса", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop );
+                MessageBox.Show("Для начала введите номер автобуса", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
@@ -508,7 +514,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             pictureBoxSearchByStopNameButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
 
             string request = textBoxStopNameSearch.Text;
-            
+
             if (request == "")
             {
                 MessageBox.Show("Пожалуйста, сначала введите название остановки.", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -549,11 +555,28 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             int k = 90;
             int x = 1;
-            while (panelSearching.Left > - 344)
+            while (panelSearching.Left > -344)
             {
                 panelSearching.Left -= k / x;
                 x++;
             }
+        }
+
+        private void textBoxAlert_MouseMove(object sender, MouseEventArgs e)
+        {
+            panelBusStops.Focus();
+            Cursor = Cursors.Arrow;
+        }
+
+        private void textBoxAlert_MouseDown(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            FormInstruction form = new FormInstruction();
+            form.ShowDialog();
         }
     }
 }
