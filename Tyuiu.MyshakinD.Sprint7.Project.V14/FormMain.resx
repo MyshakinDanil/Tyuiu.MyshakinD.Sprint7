@@ -344,6 +344,29 @@
         QwBgbOUQABhbOQQAxlYOAYCxlUMAYGzlEAAY2btv+f+qplZp+Ec0swAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="pictureBoxButtonUpload.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAHEAAAAaCAYAAACATbNJAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAe
+        vAAAHrwB7kRN9wAAA/RJREFUaEPtmr9rFEEUx1OY0sqk0cZGUoogGOMVYqXR4I/OImChgqAggiQiilqJ
+        ddIYEGy8RtDOxEa0Tp1gIxYG/CMC43wWvse7l7eXy+Uut4lbfEgyOzvz5n3ezJ7ejqSUWoyeON3INDN/
+        MpuZVFMZ8IEX/DSsN8k7lFk8cuZimnn5Nj38tJqeffuVnn//XVMR8IEX/OAJX5lRK3Fp4trtNL+yHg5Q
+        Uy3whC+8FRLzL+fGz06nueW1osONF4vp1NXZfGWkxbGTk0W7H6xmeOBrLHvDHxI/zLxaKi7cWvjYJs+D
+        XD9YzfDgaM3+mkj8y1lLIxKnZh+km2/et3Wefvy6JfLuuy9t12qGB96yvw0kdvUhZuL8lUIiov216Ajm
+        7/vNH1v6zq+stfXzHD56vK2/5n30ebWYh6NdfS/ce9rWl7+jdsH9XKdQ1UaMFCnzalwgfl/MUJYHjc11
+        tW13sgm7ZmKjjZjUVgbesr/NQmLUwaPk+Z2o4MvwInuV6ItEWCHERhux2jGExrACvDyPlxVJZE0aZy8l
+        Av66kqiBbYACiVS+X5QS5neFlcjv9lqEkgaMyY6k3RaPLRQVm08+99HuBTMmCbOx2Ph9MiOJyg9EORKS
+        2qlPXyRyswKydDuoUJJJhm3vVaIfB5Ro5lKb5vXFo3bbtxPR2OAlavdHO9EzdIkQJRJYqBbn8QH3KtHv
+        LFCsdsGMSULtEQWMQ1s0ZxQ7bZFwH4/GVZHwt79H7ERiBIWpk0iEEiMIUMeUrxAG9pNZfMCDlghKhD6Y
+        cNxG/YTm8LBm/0y38UgcP7sRtFuJQMFYkV1LBBLCIDYAJQd81ZZVZj8lqoC8HCVLJ4di8UI6oWT6Z6ji
+        IR8kVNf7LdGvidg1t31U7Fpip6D2QqJOh+ifAlzT8cnvZY+CMsriVDyaW3ENWiIop/RR2xaJGOZmf+6S
+        JAVvd5yCIlmqcu61R4IPuFeJdlHMoQ8e2gkeLVj9oiIgZq4zto9Fu5y12XbFo7HVPmiJxKe1dNyJNvkR
+        NmihivSweH72S2KELR4PYysGL0Jwrx/TY4sWbDx27n5LLIO1dHwmsnAqwItBnl+MsLsCuJe+StCgJFKN
+        /sTwlFW1hVNGu87CvdHuVTx+zEFLRF50YmyRWEWUtCih28G9LL6bYtmvHFiJetZxX6ddeBBoSazyt/g7
+        kahnoIie4QcJ+x/gra+iqkgvEvlZ9gw/SNivopr6Urhmf2G/FG6MT11OT77+DDvWVJO55XW9ntHQi1IL
+        E9fv5E9x9YtS+4HiRansC2/2bbfRzOLY5KXE0cpZW+UPO/8j+MALfvCEL7y1JIrcqJeHNzL1y8PVAh94
+        cS8Pp5F/rsr6Wf9OSDYAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="pictureBoxSearchByStopNameButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAHEAAAAaCAYAAACATbNJAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAe
@@ -5574,6 +5597,15 @@
   <metadata name="BusEndStop.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="BusNumberModified.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="startStopModified.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="endStopModified.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="pictureBoxSaveButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAIUAAAAXCAYAAAAldIx0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAe
@@ -10478,6 +10510,12 @@
   </metadata>
   <metadata name="folderBrowserDialogSaveStopsList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>165, 17</value>
+  </metadata>
+  <metadata name="openFileDialogUploadData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>397, 17</value>
+  </metadata>
+  <metadata name="saveFileDialogSaveModifiedTable.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>592, 17</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

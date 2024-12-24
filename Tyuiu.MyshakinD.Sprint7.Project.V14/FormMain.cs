@@ -12,12 +12,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
     public partial class FormMain : Form {
+        public bool loadedFile;
+        
         public FormMain()
         {
             InitializeComponent();
+            loadedFile = false;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -201,13 +205,15 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             dataGridViewStopsList.Height = panelBusStops.Height - 172;
             dataGridViewStopsList.Width = panelBusStops.Width - 53;
+            dataGridViewBusListModified.Height = panelBusStops.Height - 172;
+            dataGridViewBusListModified.Width = panelBusStops.Width - 53;
             pictureBoxStopsWindowUp.Width = dataGridViewStopsList.Width + 43;
             pictureBoxStopsWindowDown.Width = dataGridViewStopsList.Width + 43;
             pictureBoxStopsWindowLeft.Height = dataGridViewStopsList.Height;
             pictureBoxStopsWindowRight.Height = dataGridViewStopsList.Height;
             pictureBoxBusStopsLabel.Left = (panelBusStops.Width - pictureBoxBusStopsLabel.Width) / 2;
-            pictureBoxBusNumberLabel.Left = (panelBusStops.Width - pictureBoxBusNumberLabel.Width) / 2;
-            textBoxBusNumber.Left = (panelBusStops.Width - textBoxBusNumber.Width) / 2;
+            pictureBoxBusNumberLabel.Left = (panelBusStops.Width - pictureBoxBusNumberLabel.Width) / 2 + 35;
+            textBoxBusNumber.Left = (panelBusStops.Width - textBoxBusNumber.Width) / 2 + 35;
             textBoxAlert.Left = (panelBusStops.Width - textBoxAlert.Width) / 2;
         }
 
@@ -228,7 +234,18 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
         private void pictureBoxButtonUpdate_MouseDown(object sender, MouseEventArgs e)
         {
+            loadedFile = false;
+            
             textBoxAlert.Visible = true;
+            pictureBoxButtonSearch.Visible = true;
+            radioButtonOrientation.Visible = true;
+            pictureBoxBusNumberLabel.Visible = true;
+            textBoxBusNumber.Visible = true;
+
+            pictureBoxBusListLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\bus_list_label.png");
+            pictureBoxBusStopsLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\BusStopsLabel.png");
+
+            dataGridViewBusListModified.Visible = false;
 
             pictureBoxButtonUpdate.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_update_click.png");
 
@@ -313,78 +330,91 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
         private void dataGridViewBusesList_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            textBoxAlert.Visible = false;
-
-            string bus_number = dataGridViewBusesList[0, dataGridViewBusesList.CurrentCell.RowIndex].Value.ToString();
-
-            textBoxBusNumber.Text = $"Расписание автобуса №{bus_number}";
-
-            string orientation;
-            if (radioButtonOrientation.Checked == false) { orientation = "A"; }
-            else { orientation = "B"; }
-
-            string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number.Replace("к", "k").Replace("д", "d").Replace("ж", "zh").Replace("в", "v").Replace("а", "a").Replace("э", "e").Replace("р", "r").Replace("б", "b")}/{orientation}";
-
-            try
+            if (dataGridViewBusesList.Rows.Count > 0 && loadedFile == false)
             {
-                string path = DataService.LoadBusStops(url_bus_stops, bus_number, orientation);
+                textBoxAlert.Visible = false;
 
-                int len = 0;
-                int maxRowLen = 0;
+                string bus_number = dataGridViewBusesList[0, dataGridViewBusesList.CurrentCell.RowIndex].Value.ToString();
+                string startStop = dataGridViewBusesList[1, dataGridViewBusesList.CurrentCell.RowIndex].Value.ToString();
+                string endStop = dataGridViewBusesList[2, dataGridViewBusesList.CurrentCell.RowIndex].Value.ToString();
 
-                dataGridViewStopsList.Rows.Clear();
-                dataGridViewStopsList.Columns.Clear();
 
-                using (StreamReader reader = new StreamReader(path))
+                string orientation;
+                if (radioButtonOrientation.Checked == false) { orientation = "A"; }
+                else { orientation = "B"; }
+
+                if (orientation == "A")
                 {
-                    while (!reader.EndOfStream)
-                    {
-                        string line = reader.ReadLine();
-                        if (maxRowLen < line.Split(";").Length)
-                        {
-                            maxRowLen = line.Split(";").Length;
-                        }
-                        len++;
-                    }
+                    textBoxBusNumber.Text = $"№{bus_number} {startStop} - {endStop}";
+                }
+                else
+                {
+                    textBoxBusNumber.Text = $"№{bus_number} {endStop} - {startStop}";
                 }
 
-                for (int i = 0; i < maxRowLen - 1; i++)
-                {
-                    dataGridViewStopsList.Columns.Add(new DataGridViewTextBoxColumn() { Name = $"column_{i}", HeaderText = $"Столбец {i}" });
-                }
+                string url_bus_stops = $"https://kudikina.ru/tmn/bus/{bus_number.Replace("к", "k").Replace("д", "d").Replace("ж", "zh").Replace("в", "v").Replace("а", "a").Replace("э", "e").Replace("р", "r").Replace("б", "b")}/{orientation}";
 
-                dataGridViewStopsList.RowCount = len;
-
-                using (StreamReader sr = new StreamReader(path))
+                try
                 {
-                    while (!sr.EndOfStream)
+                    string path = DataService.LoadBusStops(url_bus_stops, bus_number, orientation);
+
+                    int len = 0;
+                    int maxRowLen = 0;
+
+                    dataGridViewStopsList.Rows.Clear();
+                    dataGridViewStopsList.Columns.Clear();
+
+                    using (StreamReader reader = new StreamReader(path))
                     {
-                        for (int i = 0; i < len; i++)
+                        while (!reader.EndOfStream)
                         {
-                            string[] line = sr.ReadLine().Split(";");
-
-                            dataGridViewStopsList.Rows[i].HeaderCell.Value = line[0];
-
-                            for (int j = 1; j < maxRowLen; j++)
+                            string line = reader.ReadLine();
+                            if (maxRowLen < line.Split(";").Length)
                             {
-                                try
+                                maxRowLen = line.Split(";").Length;
+                            }
+                            len++;
+                        }
+                    }
+
+                    for (int i = 0; i < maxRowLen - 1; i++)
+                    {
+                        dataGridViewStopsList.Columns.Add(new DataGridViewTextBoxColumn() { Name = $"column_{i}", HeaderText = $"Столбец {i}" });
+                    }
+
+                    dataGridViewStopsList.RowCount = len;
+
+                    using (StreamReader sr = new StreamReader(path))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            for (int i = 0; i < len; i++)
+                            {
+                                string[] line = sr.ReadLine().Split(";");
+
+                                dataGridViewStopsList.Rows[i].HeaderCell.Value = line[0];
+
+                                for (int j = 1; j < maxRowLen; j++)
                                 {
-                                    dataGridViewStopsList[j - 1, i].Value = line[j];
-                                }
-                                catch
-                                {
-                                    continue;
+                                    try
+                                    {
+                                        dataGridViewStopsList[j - 1, i].Value = line[j];
+                                    }
+                                    catch
+                                    {
+                                        continue;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            catch
-            {
-                FormNoInternetConnection form = new FormNoInternetConnection();
-                this.Hide();
-                form.ShowDialog();
+                catch
+                {
+                    FormNoInternetConnection form = new FormNoInternetConnection();
+                    this.Hide();
+                    form.ShowDialog();
+                }
             }
         }
 
@@ -432,23 +462,73 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             pictureBoxSaveButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_save_click.png");
 
-            if (textBoxBusNumber.Text.Length > 0)
+            if (loadedFile == false)
             {
-                string bus_number = textBoxBusNumber.Text.Split("№")[1];
-
-                string orientation;
-                if (radioButtonOrientation.Checked == false) { orientation = "A"; }
-                else { orientation = "B"; }
-
-                FolderBrowserDialog folder = new FolderBrowserDialog();
-                if (folder.ShowDialog() == DialogResult.OK)
+                if (textBoxBusNumber.Text.Length > 0)
                 {
-                    System.IO.File.Copy($@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}_stops_{orientation}.csv", Path.Combine(folder.SelectedPath, $"{bus_number}_stops_{orientation}.csv"));
+                    string bus_number = textBoxBusNumber.Text.Split(" ")[0].Replace("№", "");
+
+                    string orientation;
+                    if (radioButtonOrientation.Checked == false) { orientation = "A"; }
+                    else { orientation = "B"; }
+
+                    FolderBrowserDialog folder = new FolderBrowserDialog();
+                    if (folder.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.Copy($@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_stops_lists\{bus_number}_stops_{orientation}.csv", Path.Combine(folder.SelectedPath, $"{bus_number}_stops_{orientation}.csv"));
+                        MessageBox.Show("Файл сохранён.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Пожалуйста, сначала выберите необходимое расписание.", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
             else
             {
-                MessageBox.Show("Пожалуйста, сначала выберите необходимое расписание.", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                saveFileDialogSaveModifiedTable.Filter = "Значения, разделённые запятыми(*.csv)|*.csv|Все файлы(*.*)|*.*";
+
+
+                if (saveFileDialogSaveModifiedTable.ShowDialog() == DialogResult.OK)
+                {
+                    string path = saveFileDialogSaveModifiedTable.FileName.Replace(".csv", "") + ".csv";
+
+                    try
+                    {
+                        int rows = dataGridViewBusListModified.RowCount;
+                        int columns = dataGridViewBusListModified.Columns.Count;
+
+                        string str;
+
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
+
+                        for (int i = 0;i < rows - 1;i++)
+                        {
+                            str = "";
+                            
+                            for (int j = 0;j < columns;j++)
+                            {
+                                if (j != columns - 1)
+                                {
+                                    str += dataGridViewBusListModified.Rows[i].Cells[j].Value + ";";
+                                }
+                                else
+                                {
+                                    str += dataGridViewBusListModified.Rows[i].Cells[j].Value;
+                                }
+                            }
+
+                            System.IO.File.AppendAllText(path, str + Environment.NewLine);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Ошибка при сохранении файла", "Упс", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
@@ -577,6 +657,75 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             FormInstruction form = new FormInstruction();
             form.ShowDialog();
+        }
+
+        private void pictureBoxButtonUpload_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonUpload.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_upload_click.png");
+
+            openFileDialogUploadData.Filter = "Значения, разделённые запятыми(*.csv)|*.csv|Все файлы(*.*)|*.*";
+            if (openFileDialogUploadData.ShowDialog() == DialogResult.OK)
+            {
+                dataGridViewBusesList.Rows.Clear();
+                dataGridViewStopsList.Rows.Clear();
+
+                pictureBoxButtonSearch.Visible = false;
+                radioButtonOrientation.Visible = false;
+                pictureBoxBusNumberLabel.Visible = false;
+                textBoxBusNumber.Visible = false;
+
+                pictureBoxBusListLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\source_table_label.png");
+                pictureBoxBusStopsLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\modified_table_label.png");
+
+                dataGridViewBusListModified.Visible = true;
+                
+                try
+                {
+                    using (StreamReader sr = new StreamReader(openFileDialogUploadData.FileName))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string[] line = sr.ReadLine().Split(";");
+
+                            if (line.Length == 3)
+                            {
+                                string bus_number = line[0];
+                                string startStop = line[1];
+                                string endStop = line[2];
+
+                                dataGridViewBusesList.Rows.Add(bus_number, startStop, endStop);
+                                dataGridViewBusListModified.Rows.Add(bus_number, startStop, endStop);
+                            }
+                            else
+                            {
+                                MessageBox.Show("В файле приведены данные в неверном формате.", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                            }
+                        }
+
+                        loadedFile = true;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("В файле приведены данные в неверном формате.", "Упс..", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void pictureBoxButtonUpload_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxButtonUpload.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_upload_enter.png");
+        }
+
+        private void pictureBoxButtonUpload_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxButtonUpload.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_upload_sleep.png");
+        }
+
+        private void pictureBoxButtonUpload_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonUpload.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_upload_enter.png");
         }
     }
 }
