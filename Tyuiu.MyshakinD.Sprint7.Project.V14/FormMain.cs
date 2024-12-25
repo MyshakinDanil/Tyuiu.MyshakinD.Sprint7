@@ -17,7 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
     public partial class FormMain : Form {
         public bool loadedFile;
-        
+
         public FormMain()
         {
             InitializeComponent();
@@ -235,12 +235,12 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void pictureBoxButtonUpdate_MouseDown(object sender, MouseEventArgs e)
         {
             loadedFile = false;
-            
+
             textBoxAlert.Visible = true;
-            pictureBoxButtonSearch.Visible = true;
             radioButtonOrientation.Visible = true;
             pictureBoxBusNumberLabel.Visible = true;
             textBoxBusNumber.Visible = true;
+            pictureBoxButtonDrop.Visible = false;
 
             pictureBoxBusListLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\bus_list_label.png");
             pictureBoxBusStopsLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\BusStopsLabel.png");
@@ -505,11 +505,11 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
                             System.IO.File.Delete(path);
                         }
 
-                        for (int i = 0;i < rows - 1;i++)
+                        for (int i = 0; i < rows - 1; i++)
                         {
                             str = "";
-                            
-                            for (int j = 0;j < columns;j++)
+
+                            for (int j = 0; j < columns; j++)
                             {
                                 if (j != columns - 1)
                                 {
@@ -553,17 +553,35 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
 
             if (textBoxBusNumberSearch.Text.Length > 0)
             {
-                string path = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
-                dataGridViewBusesList.Rows.Clear();
-                using (StreamReader sr = new StreamReader(path))
+                if (loadedFile == false)
                 {
-                    while (!sr.EndOfStream)
+                    string path = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
+                    dataGridViewBusesList.Rows.Clear();
+                    using (StreamReader sr = new StreamReader(path))
                     {
-                        string line = sr.ReadLine();
-                        string current_bus_number = line.Split(";")[0];
-                        if (current_bus_number.Contains(textBoxBusNumberSearch.Text))
+                        while (!sr.EndOfStream)
                         {
-                            dataGridViewBusesList.Rows.Add(current_bus_number, line.Split(";")[1], line.Split(";")[2]);
+                            string line = sr.ReadLine();
+                            string current_bus_number = line.Split(";")[0];
+                            if (current_bus_number.Contains(textBoxBusNumberSearch.Text))
+                            {
+                                dataGridViewBusesList.Rows.Add(current_bus_number, line.Split(";")[1], line.Split(";")[2]);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    dataGridViewBusListModified.Rows.Clear();
+
+                    int rows = dataGridViewBusesList.RowCount;
+                    for (int i = 0; i < rows; i++)
+                    {
+                        string currentValue = dataGridViewBusesList.Rows[i].Cells[0].Value.ToString();
+
+                        if (currentValue.Contains(textBoxBusNumberSearch.Text))
+                        {
+                            dataGridViewBusListModified.Rows.Add(currentValue, dataGridViewBusesList.Rows[i].Cells[1].Value.ToString(), dataGridViewBusesList.Rows[i].Cells[2].Value.ToString());
                         }
                     }
                 }
@@ -593,7 +611,7 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         {
             pictureBoxSearchByStopNameButton.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_search_click.png");
 
-            string request = textBoxStopNameSearch.Text;
+            string request = textBoxStopNameSearch.Text.ToLower();
 
             if (request == "")
             {
@@ -601,25 +619,44 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             }
             else
             {
-                string[] busList = DataService.SearchByStop(request);
-
-                string path = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
-
-                dataGridViewBusesList.Rows.Clear();
-
-                foreach (string bus in busList)
+                if (loadedFile == false)
                 {
-                    using (StreamReader sr = new StreamReader(path))
-                    {
-                        while (!sr.EndOfStream)
-                        {
-                            string line = sr.ReadLine();
-                            string currentBus = line.Split(";")[0];
+                    string[] busList = DataService.SearchByStop(request);
 
-                            if (currentBus == bus)
+                    string path = @"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\loaded_data\buses_list.csv";
+
+                    dataGridViewBusesList.Rows.Clear();
+
+                    foreach (string bus in busList)
+                    {
+                        using (StreamReader sr = new StreamReader(path))
+                        {
+                            while (!sr.EndOfStream)
                             {
-                                dataGridViewBusesList.Rows.Add(currentBus, line.Split(";")[1], line.Split(";")[2]);
+                                string line = sr.ReadLine();
+                                string currentBus = line.Split(";")[0];
+
+                                if (currentBus == bus)
+                                {
+                                    dataGridViewBusesList.Rows.Add(currentBus, line.Split(";")[1], line.Split(";")[2]);
+                                }
                             }
+                        }
+                    }
+                }
+                else
+                {
+                    dataGridViewBusListModified.Rows.Clear();
+
+                    int rows = dataGridViewBusesList.Rows.Count;
+                    for (int i = 0; i < rows; i++)
+                    {
+                        string startStop = dataGridViewBusesList.Rows[i].Cells[1].Value.ToString().ToLower();
+                        string endstop = dataGridViewBusesList.Rows[i].Cells[2].Value.ToString().ToLower();
+
+                        if (startStop.Contains(request) || endstop.Contains(request))
+                        {
+                            dataGridViewBusListModified.Rows.Add(dataGridViewBusesList.Rows[i].Cells[0].Value.ToString(), startStop, endstop);
                         }
                     }
                 }
@@ -669,16 +706,16 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
                 dataGridViewBusesList.Rows.Clear();
                 dataGridViewStopsList.Rows.Clear();
 
-                pictureBoxButtonSearch.Visible = false;
                 radioButtonOrientation.Visible = false;
                 pictureBoxBusNumberLabel.Visible = false;
                 textBoxBusNumber.Visible = false;
+                pictureBoxButtonDrop.Visible = true;
 
                 pictureBoxBusListLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\source_table_label.png");
                 pictureBoxBusStopsLabel.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\modified_table_label.png");
 
                 dataGridViewBusListModified.Visible = true;
-                
+
                 try
                 {
                     using (StreamReader sr = new StreamReader(openFileDialogUploadData.FileName))
@@ -726,6 +763,41 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
         private void pictureBoxButtonUpload_MouseUp(object sender, MouseEventArgs e)
         {
             pictureBoxButtonUpload.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_upload_enter.png");
+        }
+
+        private void pictureBoxButtonDrop_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonDrop.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_drop_click.png");
+
+            int rows = dataGridViewBusesList.Rows.Count;
+
+            dataGridViewBusListModified.Rows.Clear();
+
+            for (int i = 0; i < rows; i++)
+            {
+                dataGridViewBusListModified.Rows.Add(dataGridViewBusesList.Rows[i].Cells[0].Value.ToString(), dataGridViewBusesList.Rows[i].Cells[1].Value.ToString(), dataGridViewBusesList.Rows[i].Cells[2].Value.ToString());
+            }
+        }
+
+        private void pictureBoxButtonDrop_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxButtonDrop.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_drop_enter.png");
+        }
+
+        private void pictureBoxButtonDrop_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxButtonDrop.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_drop_sleep.png");
+        }
+
+        private void pictureBoxButtonDrop_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxButtonDrop.Image = Image.FromFile(@"C:\Users\mysha\source\repos\Tyuiu.MyshakinD.Sprint7\data\button_drop_enter.png");
+        }
+
+        private void buttonStatistic_Click(object sender, EventArgs e)
+        {
+            FormStatistic form = new FormStatistic();
+            form.ShowDialog();
         }
     }
 }

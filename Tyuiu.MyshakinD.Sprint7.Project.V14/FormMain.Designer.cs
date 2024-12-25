@@ -28,12 +28,12 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             panelAbout = new Panel();
             buttonHelp = new Button();
             panelTop = new Panel();
@@ -68,6 +68,7 @@
             BusEndStop = new DataGridViewTextBoxColumn();
             splitterBusesAndBusStops = new Splitter();
             panelBusStops = new Panel();
+            pictureBoxButtonDrop = new PictureBox();
             dataGridViewBusListModified = new DataGridView();
             BusNumberModified = new DataGridViewTextBoxColumn();
             startStopModified = new DataGridViewTextBoxColumn();
@@ -87,6 +88,7 @@
             folderBrowserDialogSaveStopsList = new FolderBrowserDialog();
             openFileDialogUploadData = new OpenFileDialog();
             saveFileDialogSaveModifiedTable = new SaveFileDialog();
+            buttonStatistic = new Button();
             panelAbout.SuspendLayout();
             panelTop.SuspendLayout();
             panelHello.SuspendLayout();
@@ -110,6 +112,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusesWindowUp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBusesList).BeginInit();
             panelBusStops.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxButtonDrop).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBusListModified).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSaveButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusNumberLabel).BeginInit();
@@ -492,22 +495,22 @@
             dataGridViewBusesList.AllowUserToDeleteRows = false;
             dataGridViewBusesList.AllowUserToResizeColumns = false;
             dataGridViewBusesList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewBusesList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewBusesList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewBusesList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewBusesList.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewBusesList.ColumnHeadersHeight = 30;
             dataGridViewBusesList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewBusesList.Columns.AddRange(new DataGridViewColumn[] { BusNumber, BusStartStop, BusEndStop });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Consolas", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridViewBusesList.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
+            dataGridViewCellStyle9.Font = new Font("Consolas", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dataGridViewBusesList.DefaultCellStyle = dataGridViewCellStyle9;
             dataGridViewBusesList.Location = new Point(31, 141);
             dataGridViewBusesList.MultiSelect = false;
             dataGridViewBusesList.Name = "dataGridViewBusesList";
@@ -521,8 +524,8 @@
             // 
             // BusNumber
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            BusNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            BusNumber.DefaultCellStyle = dataGridViewCellStyle8;
             BusNumber.Frozen = true;
             BusNumber.HeaderText = "№";
             BusNumber.Name = "BusNumber";
@@ -560,6 +563,8 @@
             // 
             panelBusStops.BackColor = Color.FromArgb(15, 90, 48);
             panelBusStops.BorderStyle = BorderStyle.FixedSingle;
+            panelBusStops.Controls.Add(buttonStatistic);
+            panelBusStops.Controls.Add(pictureBoxButtonDrop);
             panelBusStops.Controls.Add(dataGridViewBusListModified);
             panelBusStops.Controls.Add(textBoxAlert);
             panelBusStops.Controls.Add(pictureBoxSaveButton);
@@ -581,20 +586,35 @@
             panelBusStops.Paint += panelBusStops_Paint;
             panelBusStops.MouseMove += panelBusStops_MouseMove;
             // 
+            // pictureBoxButtonDrop
+            // 
+            pictureBoxButtonDrop.Image = (Image)resources.GetObject("pictureBoxButtonDrop.Image");
+            pictureBoxButtonDrop.Location = new Point(5, 55);
+            pictureBoxButtonDrop.Name = "pictureBoxButtonDrop";
+            pictureBoxButtonDrop.Size = new Size(113, 26);
+            pictureBoxButtonDrop.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBoxButtonDrop.TabIndex = 14;
+            pictureBoxButtonDrop.TabStop = false;
+            pictureBoxButtonDrop.Visible = false;
+            pictureBoxButtonDrop.MouseDown += pictureBoxButtonDrop_MouseDown;
+            pictureBoxButtonDrop.MouseEnter += pictureBoxButtonDrop_MouseEnter;
+            pictureBoxButtonDrop.MouseLeave += pictureBoxButtonDrop_MouseLeave;
+            pictureBoxButtonDrop.MouseUp += pictureBoxButtonDrop_MouseUp;
+            // 
             // dataGridViewBusListModified
             // 
             dataGridViewBusListModified.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewBusListModified.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewBusListModified.ColumnHeadersHeight = 30;
             dataGridViewBusListModified.Columns.AddRange(new DataGridViewColumn[] { BusNumberModified, startStopModified, endStopModified });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Consolas", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridViewBusListModified.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("Consolas", 9F);
+            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            dataGridViewBusListModified.DefaultCellStyle = dataGridViewCellStyle10;
             dataGridViewBusListModified.Location = new Point(27, 141);
             dataGridViewBusListModified.Name = "dataGridViewBusListModified";
             dataGridViewBusListModified.RowHeadersVisible = false;
@@ -752,9 +772,9 @@
             dataGridViewStopsList.AllowUserToDeleteRows = false;
             dataGridViewStopsList.AllowUserToResizeColumns = false;
             dataGridViewStopsList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = Color.PapayaWhip;
-            dataGridViewCellStyle5.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewStopsList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.BackColor = Color.PapayaWhip;
+            dataGridViewCellStyle11.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewStopsList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewStopsList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             dataGridViewStopsList.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewStopsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -763,9 +783,9 @@
             dataGridViewStopsList.Name = "dataGridViewStopsList";
             dataGridViewStopsList.ReadOnly = true;
             dataGridViewStopsList.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewStopsList.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.BackColor = Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewStopsList.RowsDefaultCellStyle = dataGridViewCellStyle12;
             dataGridViewStopsList.Size = new Size(672, 457);
             dataGridViewStopsList.TabIndex = 0;
             dataGridViewStopsList.TabStop = false;
@@ -782,6 +802,20 @@
             // openFileDialogUploadData
             // 
             openFileDialogUploadData.FileName = "openFileDialogUploadData";
+            // 
+            // buttonStatistic
+            // 
+            buttonStatistic.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonStatistic.FlatAppearance.BorderSize = 0;
+            buttonStatistic.FlatStyle = FlatStyle.Flat;
+            buttonStatistic.Image = (Image)resources.GetObject("buttonStatistic.Image");
+            buttonStatistic.Location = new Point(673, -1);
+            buttonStatistic.Name = "buttonStatistic";
+            buttonStatistic.Size = new Size(51, 45);
+            buttonStatistic.TabIndex = 15;
+            buttonStatistic.TabStop = false;
+            buttonStatistic.UseVisualStyleBackColor = true;
+            buttonStatistic.Click += buttonStatistic_Click;
             // 
             // FormMain
             // 
@@ -832,6 +866,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewBusesList).EndInit();
             panelBusStops.ResumeLayout(false);
             panelBusStops.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxButtonDrop).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBusListModified).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSaveButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBusNumberLabel).EndInit();
@@ -899,5 +934,7 @@
         private DataGridViewTextBoxColumn startStopModified;
         private DataGridViewTextBoxColumn endStopModified;
         private SaveFileDialog saveFileDialogSaveModifiedTable;
+        private PictureBox pictureBoxButtonDrop;
+        private Button buttonStatistic;
     }
 }
