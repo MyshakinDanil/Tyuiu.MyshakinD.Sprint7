@@ -28,13 +28,14 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             panelAbout = new Panel();
+            buttonAbout = new Button();
             buttonHelp = new Button();
             panelTop = new Panel();
             panelHello = new Panel();
@@ -68,6 +69,7 @@
             BusEndStop = new DataGridViewTextBoxColumn();
             splitterBusesAndBusStops = new Splitter();
             panelBusStops = new Panel();
+            buttonStatistic = new Button();
             pictureBoxButtonDrop = new PictureBox();
             dataGridViewBusListModified = new DataGridView();
             BusNumberModified = new DataGridViewTextBoxColumn();
@@ -88,7 +90,7 @@
             folderBrowserDialogSaveStopsList = new FolderBrowserDialog();
             openFileDialogUploadData = new OpenFileDialog();
             saveFileDialogSaveModifiedTable = new SaveFileDialog();
-            buttonStatistic = new Button();
+            toolTipMain = new ToolTip(components);
             panelAbout.SuspendLayout();
             panelTop.SuspendLayout();
             panelHello.SuspendLayout();
@@ -128,6 +130,7 @@
             // 
             panelAbout.BackColor = Color.SeaGreen;
             panelAbout.BorderStyle = BorderStyle.FixedSingle;
+            panelAbout.Controls.Add(buttonAbout);
             panelAbout.Controls.Add(buttonHelp);
             panelAbout.Dock = DockStyle.Bottom;
             panelAbout.Location = new Point(0, 729);
@@ -135,6 +138,21 @@
             panelAbout.Size = new Size(1468, 29);
             panelAbout.TabIndex = 4;
             panelAbout.MouseMove += panelAbout_MouseMove;
+            // 
+            // buttonAbout
+            // 
+            buttonAbout.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonAbout.FlatAppearance.BorderSize = 0;
+            buttonAbout.FlatStyle = FlatStyle.Flat;
+            buttonAbout.Font = new Font("Consolas", 11.25F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 204);
+            buttonAbout.Location = new Point(1302, -1);
+            buttonAbout.Name = "buttonAbout";
+            buttonAbout.Size = new Size(153, 29);
+            buttonAbout.TabIndex = 1;
+            buttonAbout.TabStop = false;
+            buttonAbout.Text = "О программе";
+            buttonAbout.UseVisualStyleBackColor = true;
+            buttonAbout.Click += buttonAbout_Click;
             // 
             // buttonHelp
             // 
@@ -147,6 +165,7 @@
             buttonHelp.Size = new Size(36, 29);
             buttonHelp.TabIndex = 0;
             buttonHelp.TabStop = false;
+            toolTipMain.SetToolTip(buttonHelp, "Инструкция по программе");
             buttonHelp.UseVisualStyleBackColor = true;
             buttonHelp.Click += buttonHelp_Click;
             // 
@@ -297,6 +316,7 @@
             pictureBoxButtonUpload.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBoxButtonUpload.TabIndex = 12;
             pictureBoxButtonUpload.TabStop = false;
+            toolTipMain.SetToolTip(pictureBoxButtonUpload, "Загрузить свой .csv файл расписания");
             pictureBoxButtonUpload.MouseDown += pictureBoxButtonUpload_MouseDown;
             pictureBoxButtonUpload.MouseEnter += pictureBoxButtonUpload_MouseEnter;
             pictureBoxButtonUpload.MouseLeave += pictureBoxButtonUpload_MouseLeave;
@@ -427,6 +447,7 @@
             pictureBoxButtonSearch.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBoxButtonSearch.TabIndex = 8;
             pictureBoxButtonSearch.TabStop = false;
+            toolTipMain.SetToolTip(pictureBoxButtonSearch, "Открыть панель поиска");
             pictureBoxButtonSearch.MouseDown += pictureBoxButtonSearch_MouseDown;
             pictureBoxButtonSearch.MouseEnter += pictureBox1_MouseEnter;
             pictureBoxButtonSearch.MouseLeave += pictureBoxButtonSearch_MouseLeave;
@@ -442,6 +463,7 @@
             pictureBoxButtonUpdate.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBoxButtonUpdate.TabIndex = 7;
             pictureBoxButtonUpdate.TabStop = false;
+            toolTipMain.SetToolTip(pictureBoxButtonUpdate, "Обновить данные о списке автобусов (сбрасывает параметры поиска)");
             pictureBoxButtonUpdate.MouseDown += pictureBoxButtonUpdate_MouseDown;
             pictureBoxButtonUpdate.MouseEnter += pictureBoxButtonUpdate_MouseEnter;
             pictureBoxButtonUpdate.MouseLeave += pictureBoxButtonUpdate_MouseLeave;
@@ -495,22 +517,22 @@
             dataGridViewBusesList.AllowUserToDeleteRows = false;
             dataGridViewBusesList.AllowUserToResizeColumns = false;
             dataGridViewBusesList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewCellStyle7.SelectionForeColor = Color.White;
-            dataGridViewBusesList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewBusesList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewBusesList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewBusesList.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewBusesList.ColumnHeadersHeight = 30;
             dataGridViewBusesList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewBusesList.Columns.AddRange(new DataGridViewColumn[] { BusNumber, BusStartStop, BusEndStop });
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Window;
-            dataGridViewCellStyle9.Font = new Font("Consolas", 9F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
-            dataGridViewBusesList.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Consolas", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridViewBusesList.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewBusesList.Location = new Point(31, 141);
             dataGridViewBusesList.MultiSelect = false;
             dataGridViewBusesList.Name = "dataGridViewBusesList";
@@ -524,8 +546,8 @@
             // 
             // BusNumber
             // 
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            BusNumber.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            BusNumber.DefaultCellStyle = dataGridViewCellStyle2;
             BusNumber.Frozen = true;
             BusNumber.HeaderText = "№";
             BusNumber.Name = "BusNumber";
@@ -586,6 +608,21 @@
             panelBusStops.Paint += panelBusStops_Paint;
             panelBusStops.MouseMove += panelBusStops_MouseMove;
             // 
+            // buttonStatistic
+            // 
+            buttonStatistic.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonStatistic.FlatAppearance.BorderSize = 0;
+            buttonStatistic.FlatStyle = FlatStyle.Flat;
+            buttonStatistic.Image = (Image)resources.GetObject("buttonStatistic.Image");
+            buttonStatistic.Location = new Point(673, -1);
+            buttonStatistic.Name = "buttonStatistic";
+            buttonStatistic.Size = new Size(51, 45);
+            buttonStatistic.TabIndex = 15;
+            buttonStatistic.TabStop = false;
+            toolTipMain.SetToolTip(buttonStatistic, "Показать статистику");
+            buttonStatistic.UseVisualStyleBackColor = true;
+            buttonStatistic.Click += buttonStatistic_Click;
+            // 
             // pictureBoxButtonDrop
             // 
             pictureBoxButtonDrop.Image = (Image)resources.GetObject("pictureBoxButtonDrop.Image");
@@ -595,6 +632,7 @@
             pictureBoxButtonDrop.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBoxButtonDrop.TabIndex = 14;
             pictureBoxButtonDrop.TabStop = false;
+            toolTipMain.SetToolTip(pictureBoxButtonDrop, "Сбросить все изменения");
             pictureBoxButtonDrop.Visible = false;
             pictureBoxButtonDrop.MouseDown += pictureBoxButtonDrop_MouseDown;
             pictureBoxButtonDrop.MouseEnter += pictureBoxButtonDrop_MouseEnter;
@@ -607,14 +645,14 @@
             dataGridViewBusListModified.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewBusListModified.ColumnHeadersHeight = 30;
             dataGridViewBusListModified.Columns.AddRange(new DataGridViewColumn[] { BusNumberModified, startStopModified, endStopModified });
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = SystemColors.Window;
-            dataGridViewCellStyle10.Font = new Font("Consolas", 9F);
-            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
-            dataGridViewBusListModified.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Consolas", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridViewBusListModified.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewBusListModified.Location = new Point(27, 141);
             dataGridViewBusListModified.Name = "dataGridViewBusListModified";
             dataGridViewBusListModified.RowHeadersVisible = false;
@@ -668,6 +706,7 @@
             pictureBoxSaveButton.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBoxSaveButton.TabIndex = 11;
             pictureBoxSaveButton.TabStop = false;
+            toolTipMain.SetToolTip(pictureBoxSaveButton, "Сохранить текущий файл расписания автобуса в указанную папку (для загруженного расписания требуется ввести имя файла)");
             pictureBoxSaveButton.DragEnter += pictureBox1_DragEnter;
             pictureBoxSaveButton.MouseDown += pictureBoxSaveButton_MouseDown;
             pictureBoxSaveButton.MouseEnter += pictureBoxSaveButton_MouseEnter;
@@ -721,6 +760,7 @@
             radioButtonOrientation.Size = new Size(206, 23);
             radioButtonOrientation.TabIndex = 5;
             radioButtonOrientation.Text = "Обратное направление";
+            toolTipMain.SetToolTip(radioButtonOrientation, "Изменить направление маршрута (требуется заного нажать на строку с интересующим автобусом)");
             radioButtonOrientation.UseVisualStyleBackColor = true;
             radioButtonOrientation.MouseClick += radioButtonOrientation_MouseClick;
             // 
@@ -772,9 +812,9 @@
             dataGridViewStopsList.AllowUserToDeleteRows = false;
             dataGridViewStopsList.AllowUserToResizeColumns = false;
             dataGridViewStopsList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.BackColor = Color.PapayaWhip;
-            dataGridViewCellStyle11.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewStopsList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.BackColor = Color.PapayaWhip;
+            dataGridViewCellStyle5.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewStopsList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewStopsList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
             dataGridViewStopsList.BackgroundColor = Color.DarkSeaGreen;
             dataGridViewStopsList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -783,9 +823,9 @@
             dataGridViewStopsList.Name = "dataGridViewStopsList";
             dataGridViewStopsList.ReadOnly = true;
             dataGridViewStopsList.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle12.BackColor = Color.White;
-            dataGridViewCellStyle12.SelectionBackColor = Color.DarkSlateGray;
-            dataGridViewStopsList.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.DarkSlateGray;
+            dataGridViewStopsList.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewStopsList.Size = new Size(672, 457);
             dataGridViewStopsList.TabIndex = 0;
             dataGridViewStopsList.TabStop = false;
@@ -803,19 +843,10 @@
             // 
             openFileDialogUploadData.FileName = "openFileDialogUploadData";
             // 
-            // buttonStatistic
+            // toolTipMain
             // 
-            buttonStatistic.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonStatistic.FlatAppearance.BorderSize = 0;
-            buttonStatistic.FlatStyle = FlatStyle.Flat;
-            buttonStatistic.Image = (Image)resources.GetObject("buttonStatistic.Image");
-            buttonStatistic.Location = new Point(673, -1);
-            buttonStatistic.Name = "buttonStatistic";
-            buttonStatistic.Size = new Size(51, 45);
-            buttonStatistic.TabIndex = 15;
-            buttonStatistic.TabStop = false;
-            buttonStatistic.UseVisualStyleBackColor = true;
-            buttonStatistic.Click += buttonStatistic_Click;
+            toolTipMain.ToolTipIcon = ToolTipIcon.Info;
+            toolTipMain.ToolTipTitle = "Подсказка";
             // 
             // FormMain
             // 
@@ -936,5 +967,7 @@
         private SaveFileDialog saveFileDialogSaveModifiedTable;
         private PictureBox pictureBoxButtonDrop;
         private Button buttonStatistic;
+        private ToolTip toolTipMain;
+        private Button buttonAbout;
     }
 }

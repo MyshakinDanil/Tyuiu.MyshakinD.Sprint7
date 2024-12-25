@@ -799,5 +799,11 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             FormStatistic form = new FormStatistic();
             form.ShowDialog();
         }
+
+        private void buttonAbout_Click(object sender, EventArgs e)
+        {
+            FormAbout form = new FormAbout();
+            form.ShowDialog();
+        }
     }
 }
