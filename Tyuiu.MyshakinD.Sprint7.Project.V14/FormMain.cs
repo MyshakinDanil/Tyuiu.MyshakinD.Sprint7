@@ -488,14 +488,15 @@ namespace Tyuiu.MyshakinD.Sprint7.Project.V14 {
             {
                 saveFileDialogSaveModifiedTable.Filter = "Значения, разделённые запятыми(*.csv)|*.csv|Все файлы(*.*)|*.*";
 
-
+                dataGridViewBusListModified.EndEdit();
+                
                 if (saveFileDialogSaveModifiedTable.ShowDialog() == DialogResult.OK)
                 {
                     string path = saveFileDialogSaveModifiedTable.FileName.Replace(".csv", "") + ".csv";
 
                     try
                     {
-                        int rows = dataGridViewBusListModified.RowCount;
+                        int rows = dataGridViewBusListModified.Rows.Count;
                         int columns = dataGridViewBusListModified.Columns.Count;
 
                         string str;
